@@ -3,291 +3,286 @@
 <head>
 <meta charset="UTF-8">
 <meta name="viewport" content="width=device-width, initial-scale=1">
-<title>RG Beauty Spa · Prototipo de reservas</title>
+<title>RG Beauty Spa · Reservas</title>
 <link rel="preconnect" href="https://fonts.googleapis.com">
 <link href="https://fonts.googleapis.com/css2?family=DM+Sans:wght@400;500;700&family=Playfair+Display:wght@600&display=swap" rel="stylesheet">
 <style>
-:root{
-  --rosa:#b5536f; --rosa-osc:#8e3a54; --rosa-cl:#f6e4ea; --nude:#fbf6f3; --tinta:#2b2326; --gris:#7a6e72; --linea:#e8dcdf;
-  --verde:#2f7d5b; --verde-cl:#e3f2ea; --ambar:#b7791f; --ambar-cl:#fbf1de; --rojo:#b3403a; --rojo-cl:#f8e3e1;
-  --wa:#1f8f5f; --ig:#a14bb5; --web:#3b6fb6; --tel:#8a6d3b; --pres:#5d6b74;
-}
+:root{--rosa:#b5536f;--rosa-osc:#8e3a54;--rosa-cl:#f6e4ea;--nude:#fbf6f3;--tinta:#2b2326;--gris:#75696d;--linea:#e8dcdf;
+--verde:#2f7d5b;--verde-cl:#e3f2ea;--ambar-cl:#fbf1de;--rojo:#b3403a;--rojo-cl:#f8e3e1;
+--wa:#1f8f5f;--ig:#a14bb5;--web:#3b6fb6;--tel:#8a6d3b;--pres:#5d6b74;--blo:#9a9a9a}
 *{box-sizing:border-box}
 body{margin:0;font-family:'DM Sans',system-ui,sans-serif;color:var(--tinta);background:var(--nude);font-size:15px}
 button{font-family:inherit;font-size:inherit;cursor:pointer}
-header.barra{display:flex;flex-wrap:wrap;gap:10px;align-items:center;justify-content:space-between;padding:12px 18px;background:#fff;border-bottom:1px solid var(--linea);position:sticky;top:0;z-index:5}
-.marca{font-family:'Playfair Display',serif;font-size:20px;color:var(--rosa-osc)}
-.marca small{font-family:'DM Sans';font-size:12px;color:var(--gris);margin-left:8px}
-.tabs{display:flex;gap:6px;flex-wrap:wrap;align-items:center}
-.tab{border:1px solid var(--linea);background:#fff;padding:7px 12px;border-radius:20px;color:var(--tinta)}
+a{color:var(--rosa-osc)}
+header.barra{display:flex;flex-wrap:wrap;gap:10px;align-items:center;justify-content:space-between;padding:12px 18px;background:#fff;border-bottom:1px solid var(--linea)}
+.marca{font-family:'Playfair Display',serif;font-size:21px;color:var(--rosa-osc)}
+.tabs{display:flex;gap:6px;flex-wrap:wrap}
+.tab{border:1px solid var(--linea);background:#fff;padding:8px 14px;border-radius:20px;color:var(--tinta)}
 .tab.on{background:var(--rosa);border-color:var(--rosa);color:#fff}
-.toggle{display:flex;align-items:center;gap:6px;font-size:13px;color:var(--gris);margin-left:6px}
-main{padding:20px 14px 40px}
+main{padding:18px 14px 30px}
 .vista{display:none}.vista.on{display:block}
-
-/* Teléfono */
-.telefono{max-width:390px;margin:0 auto;background:#fff;border-radius:28px;box-shadow:0 10px 30px rgba(80,40,55,.12);overflow:hidden;min-height:690px;display:flex;flex-direction:column;border:1px solid var(--linea)}
-.tel-top{background:var(--rosa);color:#fff;padding:16px 18px 14px}
-.tel-top .t1{font-family:'Playfair Display',serif;font-size:19px}
-.tel-top .t2{font-size:12px;opacity:.85}
-.pasos{display:flex;gap:4px;margin-top:10px}
-.pasos span{flex:1;height:4px;border-radius:3px;background:rgba(255,255,255,.3)}
-.pasos span.ok{background:#fff}
-.pantalla{padding:18px;flex:1;display:none;flex-direction:column;gap:12px}
-.pantalla.on{display:flex}
+.col{max-width:430px;margin:0 auto;display:flex;flex-direction:column;gap:12px}
+.ancho{max-width:1150px;margin:0 auto;display:flex;flex-direction:column;gap:14px}
+.caja{background:#fff;border:1px solid var(--linea);border-radius:16px;padding:16px}
+h1{font-family:'Playfair Display',serif;font-size:24px;margin:0;color:var(--rosa-osc)}
 h2{font-size:18px;margin:0}
+h3{font-size:15px;margin:0 0 8px}
 .sub{color:var(--gris);font-size:13px;margin:0}
-.btn{border:none;background:var(--rosa);color:#fff;padding:13px 16px;border-radius:12px;font-weight:700;width:100%}
+.pasos{display:flex;gap:4px}.pasos span{flex:1;height:5px;border-radius:3px;background:var(--linea)}.pasos span.ok{background:var(--rosa)}
+.btn{border:none;background:var(--rosa);color:#fff;padding:13px 16px;border-radius:12px;font-weight:700;width:100%;text-align:center;text-decoration:none;display:block}
 .btn:hover{background:var(--rosa-osc)}
 .btn.sec{background:#fff;color:var(--rosa-osc);border:1.5px solid var(--rosa)}
 .btn.wa{background:var(--wa)}
 .btn:disabled{background:#d9cfd2;cursor:not-allowed}
-.link{background:none;border:none;color:var(--rosa-osc);text-decoration:underline;padding:4px 0;font-size:13px;text-align:left}
+.btn.peq{width:auto;padding:9px 14px;display:inline-block}
+.mini{border:1px solid var(--linea);background:#fff;border-radius:8px;padding:6px 10px;font-size:12px;color:var(--tinta);text-decoration:none;display:inline-block}
+.mini.v{background:var(--verde);border-color:var(--verde);color:#fff}
+.mini.r{color:var(--rojo);border-color:#e9c2bf}
+.mini.wa{background:var(--wa);border-color:var(--wa);color:#fff}
 .volver{background:none;border:none;color:var(--gris);padding:0;font-size:13px;text-align:left;width:max-content}
 .tarjeta{border:1.5px solid var(--linea);border-radius:14px;padding:12px 14px;background:#fff;text-align:left;display:flex;justify-content:space-between;align-items:center;gap:10px;width:100%}
-.tarjeta:hover{border-color:var(--rosa)}
-.tarjeta.sel{border-color:var(--rosa);background:var(--rosa-cl)}
-.tarjeta b{display:block}
-.tarjeta small{color:var(--gris)}
+.tarjeta:hover{border-color:var(--rosa)}.tarjeta.sel{border-color:var(--rosa);background:var(--rosa-cl)}
+.tarjeta b{display:block}.tarjeta small{color:var(--gris)}
 .chip{font-size:12px;padding:3px 8px;border-radius:10px;background:var(--rosa-cl);color:var(--rosa-osc);white-space:nowrap}
 .dias{display:flex;gap:6px;overflow-x:auto;padding-bottom:4px}
 .dia{min-width:58px;border:1.5px solid var(--linea);background:#fff;border-radius:12px;padding:8px 4px;text-align:center}
-.dia b{display:block;font-size:17px}
-.dia small{font-size:11px;color:var(--gris);text-transform:capitalize}
+.dia b{display:block;font-size:17px}.dia small{font-size:11px;color:var(--gris)}
 .dia.sel{border-color:var(--rosa);background:var(--rosa-cl)}
-.franja{font-size:12px;color:var(--gris);margin:6px 0 2px;font-weight:700;text-transform:uppercase;letter-spacing:.04em}
+.franja{font-size:12px;color:var(--gris);margin:6px 0 4px;font-weight:700;text-transform:uppercase;letter-spacing:.04em}
 .horas{display:grid;grid-template-columns:repeat(4,1fr);gap:6px}
 .hora{border:1.5px solid var(--linea);background:#fff;border-radius:10px;padding:9px 0;font-weight:500}
 .hora.sel{border-color:var(--rosa);background:var(--rosa);color:#fff}
 .hora.ocupada{background:#f1ecee;color:#b9adb1;text-decoration:line-through;border-style:dashed}
-.leyenda{display:flex;gap:12px;font-size:12px;color:var(--gris)}
-.leyenda i{display:inline-block;width:12px;height:12px;border-radius:3px;vertical-align:-2px;margin-right:4px;border:1.5px solid var(--linea)}
 .aviso{border-radius:12px;padding:10px 12px;font-size:13px}
-.aviso.info{background:var(--ambar-cl);color:#6b4a12}
-.aviso.ok{background:var(--verde-cl);color:#1f5b40}
-.aviso.err{background:var(--rojo-cl);color:#7c2621}
+.aviso.info{background:var(--ambar-cl);color:#6b4a12}.aviso.ok{background:var(--verde-cl);color:#1f5b40}.aviso.err{background:var(--rojo-cl);color:#7c2621}
 label.campo{display:flex;flex-direction:column;gap:4px;font-size:13px;font-weight:500}
-input[type=text],input[type=tel],input[type=email],select{border:1.5px solid var(--linea);border-radius:10px;padding:11px;font-family:inherit;font-size:15px}
-input:focus,select:focus{outline:2px solid var(--rosa-cl);border-color:var(--rosa)}
+input[type=text],input[type=tel],input[type=email],input[type=number],input[type=date],input[type=time],input[type=password],select,textarea{border:1.5px solid var(--linea);border-radius:10px;padding:10px;font-family:inherit;font-size:15px;background:#fff;color:var(--tinta)}
+input:focus,select:focus,textarea:focus{outline:2px solid var(--rosa-cl);border-color:var(--rosa)}
 .opc{display:flex;gap:8px}
 .opc label{flex:1;border:1.5px solid var(--linea);border-radius:10px;padding:9px;text-align:center;font-size:13px;cursor:pointer}
 .opc input{display:none}
-.opc input:checked+span{color:var(--rosa-osc);font-weight:700}
-.opc label:has(input:checked){border-color:var(--rosa);background:var(--rosa-cl)}
+.opc label:has(input:checked){border-color:var(--rosa);background:var(--rosa-cl);color:var(--rosa-osc);font-weight:700}
 .consent{display:flex;gap:8px;font-size:12px;color:var(--gris);align-items:flex-start;background:var(--nude);padding:10px;border-radius:10px}
 .consent input{margin-top:2px;accent-color:var(--rosa)}
 .resumen{background:var(--nude);border-radius:14px;padding:14px;display:grid;grid-template-columns:auto 1fr;gap:6px 12px;font-size:14px}
 .resumen span{color:var(--gris)}
-.check{width:64px;height:64px;border-radius:50%;background:var(--verde-cl);color:var(--verde);display:grid;place-items:center;font-size:34px;margin:6px auto 0}
-.wa-fondo{background:#e9e1d6;border-radius:14px;padding:14px;display:flex;flex-direction:column;gap:8px}
-.burbuja{background:#fff;border-radius:0 12px 12px 12px;padding:10px 12px;font-size:14px;max-width:92%;box-shadow:0 1px 1px rgba(0,0,0,.08)}
-.burbuja .hr{font-size:11px;color:var(--gris);text-align:right}
-.wa-botones{display:flex;flex-direction:column;gap:4px;max-width:92%}
-.wa-botones button{background:#fff;border:none;border-radius:10px;padding:9px;color:#0b7d6a;font-weight:700}
-.burbuja.yo{align-self:flex-end;background:#d8f5c8;border-radius:12px 0 12px 12px}
-.pie-tel{font-size:11px;color:var(--gris);text-align:center;padding:10px;border-top:1px solid var(--linea)}
-
-/* Panel */
-.panel{max-width:1150px;margin:0 auto;display:flex;flex-direction:column;gap:16px}
-.panel h1{font-family:'Playfair Display',serif;font-size:24px;margin:0;color:var(--rosa-osc)}
-.kpis{display:grid;grid-template-columns:repeat(auto-fit,minmax(150px,1fr));gap:10px}
+.check{width:64px;height:64px;border-radius:50%;background:var(--verde-cl);color:var(--verde);display:grid;place-items:center;font-size:34px;margin:4px auto 0}
+.pie{font-size:12px;color:var(--gris);text-align:center;margin-top:18px}
+.link{background:none;border:none;color:var(--rosa-osc);text-decoration:underline;padding:0;font-size:12px}
+/* panel */
+.subtabs{display:flex;gap:6px;flex-wrap:wrap}
+.kpis{display:grid;grid-template-columns:repeat(auto-fit,minmax(140px,1fr));gap:10px}
 .kpi{background:#fff;border:1px solid var(--linea);border-radius:14px;padding:12px 14px}
-.kpi .n{font-size:26px;font-weight:700}
-.kpi .l{font-size:12px;color:var(--gris)}
-.kpi .d{font-size:11px;color:var(--gris);margin-top:4px}
-.kpi.meta .n{color:var(--verde)}
-.caja{background:#fff;border:1px solid var(--linea);border-radius:14px;padding:14px}
-.caja h3{margin:0 0 10px;font-size:15px}
+.kpi .n{font-size:24px;font-weight:700}.kpi .l{font-size:12px;color:var(--gris)}
+.kpi.meta .n{color:var(--verde)}.kpi.mal .n{color:var(--rojo)}
 .fila{display:flex;gap:10px;flex-wrap:wrap;align-items:center;justify-content:space-between}
-.agenda{display:grid;gap:10px}
-.col-pro h4{margin:0 0 6px;font-size:14px}
-.linea-tiempo{position:relative;height:64px;background:repeating-linear-gradient(90deg,#faf6f7 0,#faf6f7 calc(100%/18 - 1px),#efe7ea calc(100%/18 - 1px),#efe7ea calc(100%/18));border-radius:10px;border:1px solid var(--linea)}
-.bloque{position:absolute;top:6px;bottom:6px;border-radius:8px;color:#fff;font-size:11px;padding:4px 6px;overflow:hidden;cursor:pointer;line-height:1.25;border:none;text-align:left}
-.bloque.cancelada{background:repeating-linear-gradient(45deg,#ddd,#ddd 4px,#eee 4px,#eee 8px)!important;color:#777;text-decoration:line-through}
-.bloque.noshow{outline:2px solid var(--rojo);outline-offset:-2px;opacity:.6}
+.linea-tiempo{position:relative;height:60px;background:#faf6f7;border-radius:10px;border:1px solid var(--linea);overflow:hidden}
+.bloque{position:absolute;top:5px;bottom:5px;border-radius:8px;color:#fff;font-size:11px;padding:3px 6px;overflow:hidden;line-height:1.25;border:none;text-align:left;cursor:pointer}
+.bloque.cancelada{display:none}.bloque.noshow{opacity:.55;outline:2px solid var(--rojo);outline-offset:-2px}
 .hueco{position:absolute;top:22px;bottom:22px;background:repeating-linear-gradient(45deg,var(--ambar-cl),var(--ambar-cl) 4px,#f6e2b9 4px,#f6e2b9 8px);border-radius:6px}
-.eje{display:flex;justify-content:space-between;font-size:10px;color:var(--gris);margin-top:2px}
+.eje{display:flex;justify-content:space-between;font-size:10px;color:var(--gris);margin:2px 0 10px}
 .canales{display:flex;gap:10px;flex-wrap:wrap;font-size:12px;color:var(--gris)}
 .canales i{display:inline-block;width:10px;height:10px;border-radius:50%;margin-right:4px}
-.dos{display:grid;grid-template-columns:1fr 1fr;gap:16px}
-@media(max-width:800px){.dos{grid-template-columns:1fr}}
 table{width:100%;border-collapse:collapse;font-size:13px}
-th,td{text-align:left;padding:6px 4px;border-bottom:1px solid var(--linea)}
+th,td{text-align:left;padding:7px 5px;border-bottom:1px solid var(--linea);vertical-align:middle}
 th{color:var(--gris);font-weight:500}
-.form-man{display:grid;grid-template-columns:repeat(auto-fit,minmax(130px,1fr));gap:8px;align-items:end}
-.form-man .btn{padding:11px}
-.pendiente{display:flex;justify-content:space-between;align-items:center;gap:8px;padding:8px 0;border-bottom:1px solid var(--linea);font-size:13px}
-.mini{border:1px solid var(--linea);background:#fff;border-radius:8px;padding:5px 9px;font-size:12px}
-.mini.v{background:var(--verde);color:#fff;border-color:var(--verde)}
-.modal-fondo{position:fixed;inset:0;background:rgba(40,20,28,.35);display:none;place-items:center;z-index:20}
+.tabla{overflow-x:auto}
+.grid2{display:grid;grid-template-columns:1fr 1fr;gap:14px}
+.form{display:grid;grid-template-columns:repeat(auto-fit,minmax(150px,1fr));gap:10px;align-items:end}
+@media(max-width:780px){.grid2{grid-template-columns:1fr}}
+.estado{font-size:11px;padding:2px 7px;border-radius:8px;white-space:nowrap}
+.e-activa{background:var(--rosa-cl);color:var(--rosa-osc)}.e-asistio{background:var(--verde-cl);color:var(--verde)}.e-noshow{background:var(--rojo-cl);color:var(--rojo)}.e-cancelada{background:#eee;color:#777}
+.modal-fondo{position:fixed;inset:0;background:rgba(40,20,28,.35);display:none;place-items:center;z-index:20;padding:12px}
 .modal-fondo.on{display:grid}
-.modal{background:#fff;border-radius:16px;padding:18px;max-width:340px;width:92%;display:flex;flex-direction:column;gap:10px}
-.nota-demo{font-size:12px;color:var(--gris);text-align:center}
-.testeo{display:none}
-body.modo-test .testeo{display:block}
+.modal{background:#fff;border-radius:16px;padding:18px;max-width:380px;width:100%;display:flex;flex-direction:column;gap:10px;max-height:90vh;overflow:auto}
+.vacio{color:var(--gris);font-size:13px;padding:8px 0}
+.testeo{display:none}body.modo-test .testeo{display:block}
 </style>
 </head>
 <body>
 <header class="barra">
-  <div class="marca">RG Beauty Spa <small>Prototipo de reservas · versión 2</small></div>
-  <div class="tabs">
-    <button class="tab on" data-v="cliente">Vista clienta</button>
-    <button class="tab" data-v="panel">Panel de la dueña</button>
-    <label class="toggle"><input type="checkbox" id="chkTest"> Modo testeo</label>
-  </div>
+  <div class="marca" id="marcaNombre">RG Beauty Spa</div>
+  <nav class="tabs">
+    <button class="tab on" data-v="reservar">Reservar</button>
+    <button class="tab" data-v="mis">Mis reservas</button>
+    <button class="tab" data-v="admin" id="tabAdmin" style="display:none">Administración</button>
+  </nav>
 </header>
 
 <main>
-<!-- ======================= CLIENTA ======================= -->
-<section class="vista on" id="v-cliente">
-  <div class="telefono">
-    <div class="tel-top">
-      <div class="t1">RG Beauty Spa</div>
-      <div class="t2" id="tel-sub">Reserva tu hora en línea</div>
-      <div class="pasos" id="pasos"><span></span><span></span><span></span><span></span></div>
-    </div>
+<!-- ================= RESERVAR ================= -->
+<section class="vista on" id="v-reservar">
+  <div class="col">
+    <div class="pasos" id="pasos"><span></span><span></span><span></span><span></span></div>
 
-    <!-- 0 Inicio -->
-    <div class="pantalla on" id="p-inicio">
-      <h2>Hola, ¿qué te gustaría reservar?</h2>
-      <p class="sub">Ves solo las horas que están libres. Recibes la confirmación al momento y un recordatorio el día antes.</p>
-      <button class="btn" id="bReservar">Reservar una hora</button>
-      <button class="btn sec" id="bMisRes">Ver o cambiar mi reserva</button>
-      <div class="aviso info">¿Prefieres que te atendamos personalmente? Escríbenos y te confirmamos la hora nosotras.</div>
-      <button class="btn wa" id="bAsistida">Prefiero reservar por WhatsApp</button>
-      <p class="nota-demo">Prototipo con datos de ejemplo. No se guarda información real.</p>
-    </div>
-
-    <!-- 1 Servicio -->
-    <div class="pantalla" id="p-servicio">
-      <button class="volver" data-ir="p-inicio">‹ Volver</button>
-      <h2>Elige el servicio</h2>
+    <div class="caja pantalla" id="p-servicio" style="display:flex;flex-direction:column;gap:10px">
+      <h2>¿Qué te gustaría reservar?</h2>
+      <p class="sub">Solo verás horas libres. Recibes la confirmación al momento.</p>
       <div id="listaServicios" style="display:flex;flex-direction:column;gap:8px"></div>
-      <h2 style="margin-top:6px">¿Con quién?</h2>
+      <h2 style="margin-top:4px">¿Con quién?</h2>
       <div id="listaPros" style="display:flex;flex-direction:column;gap:8px"></div>
       <button class="btn" id="bAFecha" disabled>Continuar</button>
+      <a class="btn wa" id="bAsistida" target="_blank" rel="noopener">Prefiero reservar por WhatsApp</a>
     </div>
 
-    <!-- 2 Fecha -->
-    <div class="pantalla" id="p-fecha">
+    <div class="caja pantalla" id="p-fecha" style="display:none;flex-direction:column;gap:10px">
       <button class="volver" data-ir="p-servicio">‹ Volver</button>
       <h2>Elige día y hora</h2>
       <p class="sub" id="fechaSub"></p>
       <div class="dias" id="dias"></div>
-      <div class="leyenda"><span><i></i>Libre</span><span><i style="background:#f1ecee;border-style:dashed"></i>Ocupada</span></div>
       <div id="horas"></div>
       <div id="avisoHora"></div>
       <button class="btn" id="bADatos" disabled>Continuar</button>
     </div>
 
-    <!-- 3 Datos -->
-    <div class="pantalla" id="p-datos">
+    <div class="caja pantalla" id="p-datos" style="display:none;flex-direction:column;gap:10px">
       <button class="volver" data-ir="p-fecha">‹ Volver</button>
       <h2>Tus datos</h2>
-      <p class="sub">Solo te pedimos lo necesario para confirmar tu hora.</p>
-      <label class="campo">Nombre<input type="text" id="inNombre" placeholder="Ej: Camila"></label>
-      <label class="campo">Celular<input type="tel" id="inFono" placeholder="+56 9 1234 5678"></label>
-      <label class="campo">Correo (opcional)<input type="email" id="inMail" placeholder="nombre@correo.cl"></label>
-      <div class="campo" style="font-size:13px;font-weight:500">¿Dónde quieres recibir la confirmación?</div>
-      <div class="opc">
-        <label><input type="radio" name="canal" value="WhatsApp" checked><span>WhatsApp</span></label>
-        <label><input type="radio" name="canal" value="Correo"><span>Correo</span></label>
-      </div>
-      <label class="consent"><input type="checkbox" id="inConsent"><span>Acepto que RG Beauty Spa use mi nombre y celular solo para gestionar mis reservas y enviarme recordatorios. Puedo pedir que borren mis datos cuando quiera. <button class="link" id="bVerPol" type="button">Ver detalle</button></span></label>
+      <p class="sub">Solo lo necesario para confirmar tu hora.</p>
+      <label class="campo">Nombre<input type="text" id="inNombre" autocomplete="name"></label>
+      <label class="campo">Celular<input type="tel" id="inFono" placeholder="9 1234 5678" autocomplete="tel"></label>
+      <label class="campo">Correo (opcional)<input type="email" id="inMail" autocomplete="email"></label>
+      <label class="consent"><input type="checkbox" id="inConsent"><span id="txtConsent"></span></label>
       <div id="avisoDatos"></div>
       <button class="btn" id="bConfirmar">Confirmar reserva</button>
     </div>
 
-    <!-- 4 Confirmación -->
-    <div class="pantalla" id="p-ok">
+    <div class="caja pantalla" id="p-ok" style="display:none;flex-direction:column;gap:10px">
       <div class="check">✓</div>
       <h2 style="text-align:center">¡Tu hora está reservada!</h2>
-      <p class="sub" style="text-align:center" id="okSub"></p>
+      <p class="sub" style="text-align:center" id="okCodigo"></p>
       <div class="resumen" id="resumen"></div>
-      <div class="aviso ok" id="okCanal"></div>
-      <button class="btn sec" id="bVerRecordatorio">Ver cómo llega el recordatorio</button>
-      <button class="btn" data-ir="p-inicio">Listo</button>
+      <p class="sub" id="okPolitica"></p>
+      <a class="btn wa" id="bAvisarSpa" target="_blank" rel="noopener">Enviar confirmación al spa por WhatsApp</a>
+      <a class="btn sec" id="bIcs">Agregar a mi calendario</a>
+      <button class="btn sec" id="bOtra">Hacer otra reserva</button>
     </div>
-
-    <!-- 5 Recordatorio -->
-    <div class="pantalla" id="p-recordatorio">
-      <button class="volver" data-ir="p-ok">‹ Volver</button>
-      <h2>Recordatorio (24 horas antes)</h2>
-      <p class="sub">Así se vería el mensaje automático en WhatsApp.</p>
-      <div class="wa-fondo" id="waChat"></div>
-    </div>
-
-    <!-- 6 Mis reservas -->
-    <div class="pantalla" id="p-mis">
-      <button class="volver" data-ir="p-inicio">‹ Volver</button>
-      <h2>Mis reservas</h2>
-      <label class="campo">Tu celular<input type="tel" id="inBuscarFono" placeholder="+56 9 1234 5678"></label>
-      <button class="btn" id="bBuscar">Buscar</button>
-      <div id="misLista" style="display:flex;flex-direction:column;gap:8px"></div>
-    </div>
-
-    <!-- 7 Asistida -->
-    <div class="pantalla" id="p-asistida">
-      <button class="volver" data-ir="p-inicio">‹ Volver</button>
-      <h2>Te atendemos por WhatsApp</h2>
-      <p class="sub">Déjanos tu nombre y qué servicio buscas. Te escribimos para ofrecerte una hora libre y la dejamos anotada en la misma agenda.</p>
-      <label class="campo">Nombre<input type="text" id="asNombre"></label>
-      <label class="campo">Celular<input type="tel" id="asFono" placeholder="+56 9 1234 5678"></label>
-      <label class="campo">Servicio<select id="asServ"></select></label>
-      <label class="campo">¿Cuándo te acomoda?<select id="asCuando"><option>Mañana (10:00 a 13:00)</option><option>Tarde (14:00 a 19:00)</option><option>Me da lo mismo</option></select></label>
-      <label class="consent"><input type="checkbox" id="asConsent"><span>Acepto que usen mi nombre y celular solo para coordinar esta reserva.</span></label>
-      <div id="avisoAs"></div>
-      <button class="btn wa" id="bEnviarAs">Enviar solicitud</button>
-    </div>
-
-    <div class="pie-tel">RG Beauty Spa · Prototipo académico con horario y datos de ejemplo</div>
+    <p class="pie" id="pieSpa"></p>
+    <p class="pie"><button class="link" id="bAccesoAdmin">Acceso administración</button></p>
   </div>
 </section>
 
-<!-- ======================= PANEL ======================= -->
-<section class="vista" id="v-panel">
-  <div class="panel">
+<!-- ================= MIS RESERVAS ================= -->
+<section class="vista" id="v-mis">
+  <div class="col">
+    <div class="caja" style="display:flex;flex-direction:column;gap:10px">
+      <h2>Mis reservas</h2>
+      <p class="sub">Escribe el celular con que reservaste.</p>
+      <label class="campo">Celular<input type="tel" id="inBuscar" placeholder="9 1234 5678"></label>
+      <button class="btn" id="bBuscar">Buscar</button>
+      <div id="misLista" style="display:flex;flex-direction:column;gap:8px"></div>
+    </div>
+  </div>
+</section>
+
+<!-- ================= ADMIN ================= -->
+<section class="vista" id="v-admin">
+  <div class="ancho">
     <div class="fila">
-      <div><h1>Agenda del día</h1><p class="sub">Todas las reservas en un solo lugar, sin importar por dónde llegaron.</p></div>
-      <div class="dias" id="diasPanel"></div>
-    </div>
-
-    <div class="kpis" id="kpis"></div>
-
-    <div class="caja">
-      <div class="fila"><h3>Agenda por profesional</h3>
-        <div class="canales"><span><i style="background:var(--web)"></i>Web</span><span><i style="background:var(--wa)"></i>WhatsApp</span><span><i style="background:var(--ig)"></i>Instagram</span><span><i style="background:var(--tel)"></i>Teléfono</span><span><i style="background:var(--pres)"></i>Presencial</span><span><i style="background:#f6e2b9;border-radius:2px"></i>Tiempo muerto</span></div>
+      <div><h1>Administración</h1><p class="sub">Todas las reservas en un solo lugar, vengan de donde vengan.</p></div>
+      <div class="subtabs" id="subtabs">
+        <button class="tab on" data-s="agenda">Agenda</button>
+        <button class="tab" data-s="nueva">Nueva reserva</button>
+        <button class="tab" data-s="clientas">Clientas</button>
+        <button class="tab" data-s="ajustes">Ajustes</button>
+        <button class="tab" data-s="datos">Respaldo</button>
+        <button class="tab" id="bSalir">Salir</button>
       </div>
-      <div class="agenda" id="agenda"></div>
-      <p class="sub" style="margin-top:8px">Toca una reserva para marcar asistencia, no-show o cancelación.</p>
     </div>
 
-    <div class="dos">
-      <div class="caja">
-        <h3>Registrar reserva que llegó por otro canal</h3>
-        <p class="sub" style="margin-bottom:8px">Si alguien reserva por Instagram, teléfono o en el local, se anota aquí. El sistema no deja guardar una hora que choque con otra.</p>
-        <div class="form-man">
-          <label class="campo">Nombre<input type="text" id="mNombre"></label>
-          <label class="campo">Canal<select id="mCanal"><option>WhatsApp</option><option>Instagram</option><option>Teléfono</option><option>Presencial</option></select></label>
-          <label class="campo">Servicio<select id="mServ"></select></label>
-          <label class="campo">Profesional<select id="mPro"></select></label>
-          <label class="campo">Hora<select id="mHora"></select></label>
-          <button class="btn" id="bManual">Guardar</button>
+    <!-- Agenda -->
+    <div class="sec-admin" id="s-agenda" style="display:flex;flex-direction:column;gap:14px">
+      <div class="fila">
+        <div style="display:flex;gap:6px;align-items:center">
+          <button class="mini" id="bDiaAnt">‹</button>
+          <input type="date" id="inDiaPanel">
+          <button class="mini" id="bDiaSig">›</button>
+          <button class="mini" id="bHoy">Hoy</button>
         </div>
-        <div id="avisoManual" style="margin-top:8px"></div>
+        <div class="canales" id="leyenda"></div>
       </div>
-      <div class="caja">
-        <h3>Solicitudes por WhatsApp para confirmar</h3>
-        <div id="pendientes"><p class="sub">No hay solicitudes pendientes.</p></div>
-      </div>
+      <div class="kpis" id="kpis"></div>
+      <div class="caja"><h3>Agenda por profesional</h3><div id="agenda"></div></div>
+      <div class="caja"><h3 id="tituloLista">Reservas del día</h3><div class="tabla" id="listaDia"></div></div>
+      <div class="caja"><h3>Recordatorios para mañana</h3><p class="sub" style="margin-bottom:8px">Cada botón abre WhatsApp con el mensaje listo para enviar a la clienta.</p><div class="tabla" id="listaRec"></div></div>
+      <div class="caja testeo"><h3>Registro del testeo</h3><div class="tabla" id="tablaTest"></div></div>
     </div>
 
-    <div class="caja testeo">
-      <h3>Registro del testeo</h3>
-      <p class="sub" style="margin-bottom:8px">Se llena solo mientras el modo testeo está activo. Sirve para la ficha de planificación (tiempo de reserva, horas ocupadas ofrecidas e intentos sobre horas tomadas).</p>
-      <table><thead><tr><th>#</th><th>Inicio</th><th>Tiempo total</th><th>Intentos en hora ocupada</th><th>Horas ocupadas ofrecidas</th><th>Resultado</th></tr></thead><tbody id="tablaTest"><tr><td colspan="6" class="sub">Aún no hay intentos registrados.</td></tr></tbody></table>
+    <!-- Nueva -->
+    <div class="sec-admin caja" id="s-nueva" style="display:none">
+      <h3>Anotar una reserva o bloquear un horario</h3>
+      <p class="sub" style="margin-bottom:10px">Para reservas que llegan por WhatsApp, Instagram, teléfono o en el local. Si la hora choca con otra, no se guarda.</p>
+      <div class="form">
+        <label class="campo">Fecha<input type="date" id="mFecha"></label>
+        <label class="campo">Hora<input type="time" id="mHora" step="900"></label>
+        <label class="campo">Servicio<select id="mServ"></select></label>
+        <label class="campo">Profesional<select id="mPro"></select></label>
+        <label class="campo">Canal<select id="mCanal"><option>WhatsApp</option><option>Instagram</option><option>Teléfono</option><option>Presencial</option><option value="Bloqueo">Bloqueo (horario no disponible)</option></select></label>
+        <label class="campo">Duración bloqueo (min)<input type="number" id="mDur" min="15" step="15" value="60"></label>
+        <label class="campo">Nombre de la clienta<input type="text" id="mNombre"></label>
+        <label class="campo">Celular<input type="tel" id="mFono"></label>
+        <button class="btn" id="bManual">Guardar</button>
+      </div>
+      <div id="avisoManual" style="margin-top:10px"></div>
     </div>
-    <p class="nota-demo">Indicadores calculados sobre datos de ejemplo. Ocupación = minutos reservados ÷ minutos disponibles. Tiempo muerto = minutos libres entre la primera y la última cita de cada profesional.</p>
+
+    <!-- Clientas -->
+    <div class="sec-admin caja" id="s-clientas" style="display:none">
+      <h3>Clientas</h3>
+      <p class="sub" style="margin-bottom:8px">Se arma con las reservas. "Borrar datos" elimina el nombre y celular de todas sus reservas (derecho de supresión, Ley 21.719).</p>
+      <div class="tabla" id="listaClientas"></div>
+    </div>
+
+    <!-- Ajustes -->
+    <div class="sec-admin" id="s-ajustes" style="display:none;flex-direction:column;gap:14px">
+      <div class="caja">
+        <h3>Datos del spa</h3>
+        <div class="form">
+          <label class="campo">Nombre<input type="text" id="cNombre"></label>
+          <label class="campo">WhatsApp del spa<input type="tel" id="cWa" placeholder="9 1234 5678"></label>
+          <label class="campo">Dirección<input type="text" id="cDir"></label>
+          <label class="campo">Días que se pueden reservar<input type="number" id="cDias" min="3" max="60"></label>
+          <label class="campo">Intervalo entre horas (min)<select id="cPaso"><option>15</option><option>30</option><option>60</option></select></label>
+          <label class="campo">PIN de administración<input type="text" id="cPin" maxlength="8"></label>
+        </div>
+        <label class="campo" style="margin-top:10px">Política de cancelación (aparece en la confirmación)<textarea id="cPol" rows="2"></textarea></label>
+        <label class="consent" style="margin-top:10px"><input type="checkbox" id="cTest"><span>Modo testeo: registra el tiempo de cada reserva y los intentos sobre horas ocupadas (para la ficha de testeo).</span></label>
+      </div>
+      <div class="caja">
+        <h3>Horario de atención</h3>
+        <div class="tabla"><table><thead><tr><th>Día</th><th>Abierto</th><th>Desde</th><th>Hasta</th></tr></thead><tbody id="tHorario"></tbody></table></div>
+      </div>
+      <div class="grid2">
+        <div class="caja">
+          <h3>Servicios</h3>
+          <div class="tabla"><table><thead><tr><th>Servicio</th><th>Min</th><th>Precio</th><th></th></tr></thead><tbody id="tServ"></tbody></table></div>
+          <button class="mini" id="bAddServ" style="margin-top:8px">+ Agregar servicio</button>
+        </div>
+        <div class="caja">
+          <h3>Profesionales</h3>
+          <div class="tabla"><table><thead><tr><th>Nombre</th><th>Rol</th><th></th></tr></thead><tbody id="tPros"></tbody></table></div>
+          <button class="mini" id="bAddPro" style="margin-top:8px">+ Agregar profesional</button>
+        </div>
+      </div>
+      <div><button class="btn peq" id="bGuardarAjustes">Guardar ajustes</button> <span id="avisoAjustes" class="sub"></span></div>
+    </div>
+
+    <!-- Respaldo -->
+    <div class="sec-admin caja" id="s-datos" style="display:none">
+      <h3>Respaldo y datos</h3>
+      <p class="sub" style="margin-bottom:10px">Los datos se guardan en este navegador. Descarga un respaldo seguido; con él puedes pasar la agenda a otro equipo.</p>
+      <div style="display:flex;gap:8px;flex-wrap:wrap">
+        <a class="btn peq" id="bCsv">Descargar reservas (CSV)</a>
+        <a class="btn peq sec" id="bJson">Descargar respaldo completo</a>
+        <label class="btn peq sec" style="cursor:pointer">Restaurar respaldo<input type="file" id="inRestore" accept=".json" style="display:none"></label>
+      </div>
+      <div style="display:flex;gap:8px;flex-wrap:wrap;margin-top:14px">
+        <button class="mini" id="bEjemplo">Cargar reservas de ejemplo (para demostrar)</button>
+        <button class="mini" id="bQuitarEj">Quitar reservas de ejemplo</button>
+        <button class="mini r" id="bBorrarTodo">Borrar todo</button>
+      </div>
+      <div id="avisoDatosAdm" style="margin-top:10px"></div>
+    </div>
   </div>
 </section>
 </main>
@@ -295,268 +290,341 @@ body.modo-test .testeo{display:block}
 <div class="modal-fondo" id="modal"><div class="modal" id="modalCont"></div></div>
 
 <script>
-// ---------- Datos base (de ejemplo) ----------
-const SERVICIOS=[
-  {id:'masaje',n:'Masaje relajante',d:60},
-  {id:'facial',n:'Limpieza facial',d:60},
-  {id:'mani',n:'Manicure',d:45},
-  {id:'pedi',n:'Pedicure',d:60},
-  {id:'corte',n:'Corte y brushing',d:60},
-  {id:'cejas',n:'Diseño de cejas',d:30},
-];
-const PROS=[{id:'p1',n:'Especialista 1',r:'Dueña'},{id:'p2',n:'Especialista 2',r:'Colaboradora'}];
-const COLOR={Web:'var(--web)',WhatsApp:'var(--wa)',Instagram:'var(--ig)','Teléfono':'var(--tel)',Presencial:'var(--pres)'};
-const APERTURA=10*60;
-function cierre(fecha){return fecha.getDay()===6?14*60:19*60}
-const DIAS_N=['dom','lun','mar','mié','jue','vie','sáb'];
+// ===================== Almacenamiento =====================
+const CLAVE='rgspa_reservas_v1';
+const DIAS_N=['Domingo','Lunes','Martes','Miércoles','Jueves','Viernes','Sábado'];
+const DIAS_C=['dom','lun','mar','mié','jue','vie','sáb'];
 const MESES=['ene','feb','mar','abr','may','jun','jul','ago','sep','oct','nov','dic'];
+const COLOR={Web:'var(--web)',WhatsApp:'var(--wa)',Instagram:'var(--ig)','Teléfono':'var(--tel)',Presencial:'var(--pres)',Bloqueo:'var(--blo)'};
+function base(){return{
+  config:{nombre:'RG Beauty Spa',wa:'',dir:'',dias:21,paso:30,pin:'1234',test:false,
+    politica:'Si no puedes asistir, avísanos con al menos 24 horas de anticipación para liberar la hora.',
+    horario:[{on:false,a:'10:00',c:'14:00'},{on:true,a:'10:00',c:'19:00'},{on:true,a:'10:00',c:'19:00'},{on:true,a:'10:00',c:'19:00'},{on:true,a:'10:00',c:'19:00'},{on:true,a:'10:00',c:'19:00'},{on:true,a:'10:00',c:'14:00'}]},
+  servicios:[{id:'s1',n:'Masaje relajante',d:60,p:0},{id:'s2',n:'Limpieza facial',d:60,p:0},{id:'s3',n:'Manicure',d:45,p:0},{id:'s4',n:'Pedicure',d:60,p:0},{id:'s5',n:'Corte y brushing',d:60,p:0},{id:'s6',n:'Diseño de cejas',d:30,p:0}],
+  pros:[{id:'p1',n:'Profesional 1',r:'Dueña'}],
+  reservas:[],test:[],sec:1};}
+let DB;
+function cargar(){try{const t=localStorage.getItem(CLAVE);DB=t?JSON.parse(t):base()}catch(e){DB=base()}
+  const b=base();DB.config=Object.assign(b.config,DB.config||{});['servicios','pros','reservas','test'].forEach(k=>{if(!Array.isArray(DB[k]))DB[k]=b[k]});if(!DB.sec)DB.sec=1;}
+function guardar(){try{localStorage.setItem(CLAVE,JSON.stringify(DB));return true}catch(e){alertar('No se pudo guardar en este navegador. Descarga un respaldo.');return false}}
+cargar();
 
-function hoy0(){const d=new Date();d.setHours(0,0,0,0);return d}
-function proximosDias(){const r=[];let d=hoy0();while(r.length<7){if(d.getDay()!==0)r.push(new Date(d));d=new Date(d.getTime()+864e5)}return r}
-const DIAS=proximosDias();
-const key=d=>d.toISOString().slice(0,10);
-const hhmm=m=>String(Math.floor(m/60)).padStart(2,'0')+':'+String(m%60).padStart(2,'0');
-function fechaLarga(d){const t=d.toLocaleDateString('es-CL',{weekday:'long',day:'numeric',month:'long'});return t.charAt(0).toUpperCase()+t.slice(1)}
+// ===================== Utilidades =====================
+const $=id=>document.getElementById(id);
+const esc=s=>String(s??'').replace(/[&<>"']/g,c=>({'&':'&amp;','<':'&lt;','>':'&gt;','"':'&quot;',"'":'&#39;'}[c]));
+const pad=n=>String(n).padStart(2,'0');
+const ymd=d=>d.getFullYear()+'-'+pad(d.getMonth()+1)+'-'+pad(d.getDate());
+const deYmd=s=>{const[a,m,d]=s.split('-').map(Number);return new Date(a,m-1,d)};
+const hhmm=m=>pad(Math.floor(m/60))+':'+pad(m%60);
+const aMin=s=>{const[h,m]=s.split(':').map(Number);return h*60+m};
+const hoy=()=>{const d=new Date();d.setHours(0,0,0,0);return d};
+const ahoraMin=()=>{const d=new Date();return d.getHours()*60+d.getMinutes()};
+function fechaLarga(s){const d=deYmd(s);return DIAS_N[d.getDay()]+' '+d.getDate()+' de '+['enero','febrero','marzo','abril','mayo','junio','julio','agosto','septiembre','octubre','noviembre','diciembre'][d.getMonth()]}
+const serv=id=>DB.servicios.find(s=>s.id===id)||{n:'(servicio eliminado)',d:30,p:0};
+const pro=id=>DB.pros.find(p=>p.id===id)||{n:'(sin profesional)'};
+const precio=p=>p>0?'$'+Number(p).toLocaleString('es-CL'):'';
+function normFono(f){let d=String(f||'').replace(/\D/g,'');if(d.length===9&&d[0]==='9')d='56'+d;if(d.length===8)d='569'+d;return d}
+const fonoOk=f=>normFono(f).length>=11;
+const waLink=(num,txt)=>'https://wa.me/'+normFono(num)+'?text='+encodeURIComponent(txt);
+const nuevoId=()=>Date.now().toString(36)+Math.random().toString(36).slice(2,6);
+const ocupa=r=>r.estado!=='cancelada';
+function horario(fecha){const h=DB.config.horario[deYmd(fecha).getDay()];return h&&h.on?{a:aMin(h.a),c:aMin(h.c)}:null}
+function choca(fecha,proId,ini,fin,ignorar){return DB.reservas.find(r=>r.fecha===fecha&&r.pro===proId&&ocupa(r)&&r.id!==ignorar&&ini<r.fin&&fin>r.ini)}
+function proLibre(fecha,ini,fin,pref){const l=pref==='cualquiera'?DB.pros.map(p=>p.id):[pref];return l.find(p=>!choca(fecha,p,ini,fin))||null}
+function diasReservables(){const r=[];let d=hoy();for(let i=0;i<DB.config.dias;i++){if(horario(ymd(d)))r.push(ymd(d));d=new Date(d.getFullYear(),d.getMonth(),d.getDate()+1)}return r}
+function descargar(a,nombre,mime,contenido){a.href='data:'+mime+';charset=utf-8,'+encodeURIComponent(contenido);a.download=nombre}
+function alertar(h){modal(`<p>${h}</p><button class="btn" onclick="cerrarModal()">Entendido</button>`)}
+function modal(h){$('modalCont').innerHTML=h;$('modal').classList.add('on')}
+function cerrarModal(){$('modal').classList.remove('on')}
+$('modal').onclick=e=>{if(e.target.id==='modal')cerrarModal()};
 
-// Generador determinista para que la agenda de ejemplo sea siempre igual
-function rng(seed){let s=0;for(const c of seed)s=(s*31+c.charCodeAt(0))>>>0;return()=>{s=(s*1664525+1013904223)>>>0;return s/4294967296}}
-let RES=[]; let nId=1;
-const NOMBRES=['Valentina','Carolina','Francisca','Javiera','María José','Constanza','Paula','Daniela','Fernanda','Catalina','Isidora','Antonia','Gloria','Patricia','Ximena','Rosa'];
-(function sembrar(){
-  DIAS.forEach((d,i)=>{
-    PROS.forEach(p=>{
-      const r=rng(key(d)+p.id);let t=APERTURA+(r()<.5?0:30);const fin=cierre(d);
-      while(t<fin-30){
-        if(r()<0.45){
-          const s=SERVICIOS[Math.floor(r()*SERVICIOS.length)];
-          if(t+s.d>fin)break;
-          const canales=['WhatsApp','WhatsApp','WhatsApp','Instagram','Instagram','Teléfono','Presencial','Web'];
-          RES.push({id:nId++,fecha:key(d),pro:p.id,serv:s.id,ini:t,fin:t+s.d,nombre:NOMBRES[Math.floor(r()*NOMBRES.length)],fono:'+56 9 '+(1000+Math.floor(r()*8999))+' '+(1000+Math.floor(r()*8999)),canal:canales[Math.floor(r()*canales.length)],estado:'activa'});
-          t+=s.d;
-        } else t+=30;
-      }
-    });
-  });
-  // algunas cancelaciones y un no-show de ejemplo en el primer día
-  const d0=RES.filter(x=>x.fecha===key(DIAS[0]));
-  if(d0[2])d0[2].estado='cancelada'; if(d0[5])d0[5].estado='noshow';
-  const d1=RES.filter(x=>x.fecha===key(DIAS[1])); if(d1[3])d1[3].estado='cancelada';
-})();
-
-// ---------- Estado de la clienta ----------
-const st={serv:null,pro:'cualquiera',dia:null,hora:null,proAsignado:null,ultima:null};
-let PEND=[];
-
-// ---------- Utilidades de agenda ----------
-function ocupado(fecha,pro,ini,fin,ignorarId){
-  return RES.some(x=>x.fecha===fecha&&x.pro===pro&&x.estado!=='cancelada'&&x.id!==ignorarId&&ini<x.fin&&fin>x.ini);
-}
-function proLibre(fecha,ini,fin,pref){
-  const lista=pref==='cualquiera'?PROS.map(p=>p.id):[pref];
-  return lista.find(p=>!ocupado(fecha,p,ini,fin))||null;
-}
-function serv(id){return SERVICIOS.find(s=>s.id===id)}
-function pro(id){return PROS.find(p=>p.id===id)}
-
-// ---------- Navegación ----------
-const PASO={'p-servicio':1,'p-fecha':2,'p-datos':3,'p-ok':4,'p-recordatorio':4};
-function ir(id){
-  document.querySelectorAll('.pantalla').forEach(p=>p.classList.toggle('on',p.id===id));
-  const n=PASO[id]||0;document.querySelectorAll('#pasos span').forEach((s,i)=>s.classList.toggle('ok',i<n));
-  document.getElementById('pasos').style.visibility=n?'visible':'hidden';
-  if(id==='p-fecha')pintarFecha();
-  if(id==='p-inicio')resetFlujo();
+// ===================== Navegación =====================
+let adminOk=false;try{adminOk=sessionStorage.getItem('rgspa_admin')==='1'}catch(e){}
+function verVista(v){
+  document.querySelectorAll('header .tab').forEach(t=>t.classList.toggle('on',t.dataset.v===v));
+  document.querySelectorAll('.vista').forEach(x=>x.classList.toggle('on',x.id==='v-'+v));
+  if(v==='admin')pintarAdmin();
   window.scrollTo(0,0);
 }
-document.querySelectorAll('[data-ir]').forEach(b=>b.addEventListener('click',()=>ir(b.dataset.ir)));
-document.querySelectorAll('.tab').forEach(t=>t.addEventListener('click',()=>{
-  document.querySelectorAll('.tab').forEach(x=>x.classList.toggle('on',x===t));
-  document.querySelectorAll('.vista').forEach(v=>v.classList.toggle('on',v.id==='v-'+t.dataset.v));
-  if(t.dataset.v==='panel')pintarPanel();
-}));
+document.querySelectorAll('header .tab').forEach(t=>t.onclick=()=>verVista(t.dataset.v));
+$('tabAdmin').style.display=adminOk?'':'none';
+$('bAccesoAdmin').onclick=()=>{
+  if(adminOk){verVista('admin');return}
+  modal(`<h2>Acceso administración</h2><label class="campo">PIN<input type="password" id="inPin" inputmode="numeric"></label><div id="avPin"></div><button class="btn" id="bPin">Entrar</button><p class="sub">El PIN por defecto es 1234. Cámbialo en Ajustes.</p>`);
+  const ok=()=>{if($('inPin').value===String(DB.config.pin)){adminOk=true;try{sessionStorage.setItem('rgspa_admin','1')}catch(e){}$('tabAdmin').style.display='';cerrarModal();verVista('admin')}else $('avPin').innerHTML='<div class="aviso err">PIN incorrecto.</div>'};
+  $('bPin').onclick=ok;$('inPin').onkeydown=e=>{if(e.key==='Enter')ok()};setTimeout(()=>$('inPin').focus(),50);
+};
+$('bSalir').onclick=()=>{adminOk=false;try{sessionStorage.removeItem('rgspa_admin')}catch(e){}$('tabAdmin').style.display='none';verVista('reservar')};
 
-// ---------- Modo testeo ----------
-let TEST=[];let intentoActual=null;
-document.getElementById('chkTest').addEventListener('change',e=>{document.body.classList.toggle('modo-test',e.target.checked)});
-function testInicio(){if(!document.body.classList.contains('modo-test'))return;intentoActual={ini:Date.now(),ocupadas:0}}
-function testFin(ok){if(!intentoActual)return;TEST.push({...intentoActual,fin:Date.now(),ok});intentoActual=null;pintarTest()}
-function pintarTest(){
-  const tb=document.getElementById('tablaTest');if(!TEST.length)return;
-  tb.innerHTML=TEST.map((t,i)=>{const s=Math.round((t.fin-t.ini)/1000);return`<tr><td>${i+1}</td><td>${new Date(t.ini).toLocaleTimeString('es-CL',{hour:'2-digit',minute:'2-digit'})}</td><td>${Math.floor(s/60)} min ${s%60} s ${s<=180?'✓':'(sobre la meta)'}</td><td>${t.ocupadas}</td><td>0</td><td>${t.ok?'Reserva completada':'Abandonó'}</td></tr>`}).join('');
+// ===================== Flujo de reserva =====================
+const st={serv:null,pro:'cualquiera',dia:null,hora:null,ultima:null};
+let intento=null;
+const PASO={'p-servicio':1,'p-fecha':2,'p-datos':3,'p-ok':4};
+function ir(id){
+  document.querySelectorAll('.pantalla').forEach(p=>p.style.display=p.id===id?'flex':'none');
+  document.querySelectorAll('#pasos span').forEach((s,i)=>s.classList.toggle('ok',i<PASO[id]));
+  if(id==='p-servicio')pintarServicios();
+  if(id==='p-fecha')pintarFecha();
+  window.scrollTo(0,0);
 }
-
-// ---------- Paso 1: servicio y profesional ----------
+document.querySelectorAll('[data-ir]').forEach(b=>b.onclick=()=>ir(b.dataset.ir));
+function pintarMarca(){
+  const c=DB.config;$('marcaNombre').textContent=c.nombre;document.title=c.nombre+' · Reservas';
+  $('pieSpa').textContent=[c.nombre,c.dir].filter(Boolean).join(' · ');
+  $('txtConsent').textContent=`Acepto que ${c.nombre} use mi nombre y celular solo para gestionar mis reservas y enviarme recordatorios. Puedo pedir que borren mis datos cuando quiera.`;
+  const a=$('bAsistida');
+  if(fonoOk(c.wa)){a.href=waLink(c.wa,`Hola, quiero reservar una hora en ${c.nombre}.`);a.style.display=''}else a.style.display='none';
+}
 function pintarServicios(){
-  const c=document.getElementById('listaServicios');
-  c.innerHTML=SERVICIOS.map(s=>`<button class="tarjeta ${st.serv===s.id?'sel':''}" data-s="${s.id}"><span><b>${s.n}</b><small>Duración aproximada</small></span><span class="chip">${s.d} min</span></button>`).join('');
-  c.querySelectorAll('[data-s]').forEach(b=>b.onclick=()=>{st.serv=b.dataset.s;pintarServicios();validarP1()});
-  const p=document.getElementById('listaPros');
-  const ops=[{id:'cualquiera',n:'Sin preferencia',r:'Te mostramos más horas'}].concat(PROS);
-  p.innerHTML=ops.map(o=>`<button class="tarjeta ${st.pro===o.id?'sel':''}" data-p="${o.id}"><span><b>${o.n}</b><small>${o.r}</small></span></button>`).join('');
-  p.querySelectorAll('[data-p]').forEach(b=>b.onclick=()=>{st.pro=b.dataset.p;pintarServicios()});
+  if(DB.config.test&&!intento)intento={ini:Date.now(),ocupadas:0};
+  const c=$('listaServicios');
+  c.innerHTML=DB.servicios.length?DB.servicios.map(s=>`<button class="tarjeta ${st.serv===s.id?'sel':''}" data-s="${s.id}"><span><b>${esc(s.n)}</b><small>${precio(s.p)||'&nbsp;'}</small></span><span class="chip">${s.d} min</span></button>`).join(''):'<p class="vacio">Aún no hay servicios configurados.</p>';
+  c.querySelectorAll('[data-s]').forEach(b=>b.onclick=()=>{st.serv=b.dataset.s;st.hora=null;pintarServicios()});
+  const ops=(DB.pros.length>1?[{id:'cualquiera',n:'Sin preferencia',r:'Te mostramos más horas'}]:[]).concat(DB.pros);
+  if(DB.pros.length===1)st.pro=DB.pros[0].id;
+  $('listaPros').innerHTML=ops.map(o=>`<button class="tarjeta ${st.pro===o.id?'sel':''}" data-p="${o.id}"><span><b>${esc(o.n)}</b><small>${esc(o.r||'')}</small></span></button>`).join('');
+  $('listaPros').querySelectorAll('[data-p]').forEach(b=>b.onclick=()=>{st.pro=b.dataset.p;st.hora=null;pintarServicios()});
+  $('bAFecha').disabled=!st.serv||!DB.pros.length;
 }
-function validarP1(){document.getElementById('bAFecha').disabled=!st.serv}
-document.getElementById('bReservar').onclick=()=>{testInicio();pintarServicios();validarP1();ir('p-servicio')};
-document.getElementById('bAFecha').onclick=()=>{st.dia=st.dia||key(DIAS[0]);ir('p-fecha')};
-
-// ---------- Paso 2: fecha y hora ----------
+$('bAFecha').onclick=()=>ir('p-fecha');
 function pintarFecha(){
-  const s=serv(st.serv);
-  document.getElementById('fechaSub').textContent=`${s.n} · ${s.d} min · ${st.pro==='cualquiera'?'sin preferencia':pro(st.pro).n}`;
-  const dc=document.getElementById('dias');
-  dc.innerHTML=DIAS.map(d=>`<button class="dia ${st.dia===key(d)?'sel':''}" data-d="${key(d)}"><small>${DIAS_N[d.getDay()]}</small><b>${d.getDate()}</b><small>${MESES[d.getMonth()]}</small></button>`).join('');
-  dc.querySelectorAll('[data-d]').forEach(b=>b.onclick=()=>{st.dia=b.dataset.d;st.hora=null;pintarFecha()});
-  const d=DIAS.find(x=>key(x)===st.dia);const fin=cierre(d);
-  let html='';const franjas=[['Mañana',APERTURA,13*60],['Tarde',13*60,fin]];
-  franjas.forEach(([nom,a,b])=>{
-    let bot='';
-    for(let t=a;t<b;t+=30){
-      if(t+s.d>fin)continue;
-      if(st.dia===key(hoy0())){const n=new Date();if(t<=n.getHours()*60+n.getMinutes())continue}
+  const s=serv(st.serv);const dias=diasReservables();
+  if(!dias.includes(st.dia))st.dia=dias[0]||null;
+  $('fechaSub').textContent=`${s.n} · ${s.d} min · ${st.pro==='cualquiera'?'sin preferencia':pro(st.pro).n}`;
+  $('dias').innerHTML=dias.map(k=>{const d=deYmd(k);return`<button class="dia ${st.dia===k?'sel':''}" data-d="${k}"><small>${DIAS_C[d.getDay()]}</small><b>${d.getDate()}</b><small>${MESES[d.getMonth()]}</small></button>`}).join('');
+  $('dias').querySelectorAll('[data-d]').forEach(b=>b.onclick=()=>{st.dia=b.dataset.d;st.hora=null;$('avisoHora').innerHTML='';pintarFecha()});
+  let html='';
+  if(st.dia){
+    const h=horario(st.dia);const paso=Number(DB.config.paso)||30;const esHoy=st.dia===ymd(hoy());
+    const grupos={Mañana:'',Tarde:''};
+    for(let t=h.a;t+s.d<=h.c;t+=paso){
+      if(esHoy&&t<=ahoraMin())continue;
       const libre=proLibre(st.dia,t,t+s.d,st.pro);
-      bot+=`<button class="hora ${libre?'':'ocupada'} ${st.hora===t?'sel':''}" data-h="${t}" ${libre?'':'data-oc="1"'}>${hhmm(t)}</button>`;
+      grupos[t<13*60?'Mañana':'Tarde']+=`<button class="hora ${libre?'':'ocupada'} ${st.hora===t?'sel':''}" data-h="${t}" ${libre?'':'data-oc="1"'}>${hhmm(t)}</button>`;
     }
-    if(bot)html+=`<div class="franja">${nom}</div><div class="horas">${bot}</div>`;
-  });
-  document.getElementById('horas').innerHTML=html;
-  document.querySelectorAll('#horas [data-h]').forEach(b=>b.onclick=()=>{
+    for(const g in grupos)if(grupos[g])html+=`<div class="franja">${g}</div><div class="horas">${grupos[g]}</div>`;
+    if(!html)html='<p class="vacio">No quedan horas este día. Prueba con otro.</p>';
+  } else html='<p class="vacio">No hay días disponibles para reservar.</p>';
+  $('horas').innerHTML=html;
+  $('horas').querySelectorAll('[data-h]').forEach(b=>b.onclick=()=>{
     const t=+b.dataset.h;
     if(b.dataset.oc){
-      if(intentoActual)intentoActual.ocupadas++;
-      const alt=[];for(let x=t+30;x<fin&&alt.length<2;x+=30){if(x+s.d<=fin&&proLibre(st.dia,x,x+s.d,st.pro))alt.push(hhmm(x))}
-      document.getElementById('avisoHora').innerHTML=`<div class="aviso err">Las ${hhmm(t)} ya está tomada por otra clienta, por eso no se puede reservar. ${alt.length?'Horas libres cercanas: <b>'+alt.join('</b> o <b>')+'</b>.':'Prueba con otro día.'}</div>`;
-      return;
+      if(intento)intento.ocupadas++;
+      const h=horario(st.dia),paso=Number(DB.config.paso)||30,alt=[];
+      for(let x=t+paso;x+s.d<=h.c&&alt.length<2;x+=paso)if(proLibre(st.dia,x,x+s.d,st.pro))alt.push(hhmm(x));
+      $('avisoHora').innerHTML=`<div class="aviso err">Las ${hhmm(t)} ya está tomada, por eso no se puede reservar. ${alt.length?'Horas libres cercanas: <b>'+alt.join('</b> o <b>')+'</b>.':'Prueba con otro día.'}</div>`;return;
     }
-    st.hora=t;document.getElementById('avisoHora').innerHTML='';pintarFecha();
+    st.hora=t;$('avisoHora').innerHTML='';pintarFecha();
   });
-  document.getElementById('bADatos').disabled=st.hora===null;
+  $('bADatos').disabled=st.hora===null;
 }
-document.getElementById('bADatos').onclick=()=>{document.getElementById('avisoDatos').innerHTML='';ir('p-datos')};
-
-// ---------- Paso 3: datos y consentimiento ----------
-document.getElementById('bVerPol').onclick=()=>modal(`<h2>Uso de tus datos</h2><p class="sub">Guardamos tu nombre, celular y, si lo das, tu correo. Los usamos solo para confirmar, recordar y cambiar tus reservas. No los compartimos con terceros ni los usamos para publicidad sin tu permiso. Puedes pedir verlos, corregirlos o borrarlos escribiéndonos por WhatsApp. Los datos se guardan mientras seas clienta activa o hasta que pidas eliminarlos.</p><button class="btn" onclick="cerrarModal()">Entendido</button>`);
-document.getElementById('bConfirmar').onclick=()=>{
-  const nom=inNombre.value.trim(),fono=inFono.value.trim(),av=document.getElementById('avisoDatos');
-  if(!nom||fono.replace(/\D/g,'').length<8){av.innerHTML='<div class="aviso err">Completa tu nombre y un celular válido.</div>';return}
-  if(!inConsent.checked){av.innerHTML='<div class="aviso err">Para reservar necesitamos que aceptes el uso de tus datos.</div>';return}
+$('bADatos').onclick=()=>{$('avisoDatos').innerHTML='';ir('p-datos')};
+$('bConfirmar').onclick=()=>{
+  const nom=$('inNombre').value.trim(),fono=$('inFono').value.trim(),av=$('avisoDatos');
+  if(!nom||!fonoOk(fono)){av.innerHTML='<div class="aviso err">Escribe tu nombre y un celular válido (por ejemplo 9 1234 5678).</div>';return}
+  if(!$('inConsent').checked){av.innerHTML='<div class="aviso err">Para reservar necesitamos que aceptes el uso de tus datos.</div>';return}
   const s=serv(st.serv);const p=proLibre(st.dia,st.hora,st.hora+s.d,st.pro);
-  if(!p){av.innerHTML='<div class="aviso err">Alguien tomó esta hora recién. Vuelve y elige otra.</div>';return}
-  const canal=document.querySelector('input[name=canal]:checked').value;
-  const r={id:nId++,fecha:st.dia,pro:p,serv:s.id,ini:st.hora,fin:st.hora+s.d,nombre:nom,fono,canal:'Web',aviso:canal,estado:'activa',nueva:true};
-  RES.push(r);st.ultima=r;testFin(true);
-  const d=DIAS.find(x=>key(x)===st.dia);
-  document.getElementById('okSub').textContent=`Código de reserva RG-${String(r.id).padStart(4,'0')}`;
-  document.getElementById('resumen').innerHTML=`<span>Servicio</span><b>${s.n}</b><span>Día</span><b>${fechaLarga(d)}</b><span>Hora</span><b>${hhmm(r.ini)} a ${hhmm(r.fin)}</b><span>Con</span><b>${pro(p).n}</b><span>A nombre de</span><b>${nom}</b>`;
-  document.getElementById('okCanal').textContent=canal==='WhatsApp'?`Te enviamos la confirmación por WhatsApp al ${fono}. El día antes te llegará un recordatorio.`:`Te enviamos la confirmación a tu correo. El día antes te llegará un recordatorio.`;
+  if(!p){av.innerHTML='<div class="aviso err">Esa hora se acaba de ocupar. Vuelve y elige otra.</div>';return}
+  const r={id:nuevoId(),cod:'RG-'+pad(DB.sec++).padStart(4,'0'),fecha:st.dia,ini:st.hora,fin:st.hora+s.d,pro:p,serv:s.id,nombre:nom,fono:normFono(fono),email:$('inMail').value.trim(),canal:'Web',estado:'activa',consent:new Date().toISOString(),creada:new Date().toISOString()};
+  DB.reservas.push(r);
+  if(intento){DB.test.push({ini:intento.ini,fin:Date.now(),ocupadas:intento.ocupadas});intento=null}
+  guardar();st.ultima=r;
+  $('okCodigo').textContent='Código de reserva '+r.cod;
+  $('resumen').innerHTML=`<span>Servicio</span><b>${esc(s.n)}</b><span>Día</span><b>${fechaLarga(r.fecha)}</b><span>Hora</span><b>${hhmm(r.ini)} a ${hhmm(r.fin)}</b><span>Con</span><b>${esc(pro(p).n)}</b><span>A nombre de</span><b>${esc(nom)}</b>`+(s.p>0?`<span>Valor</span><b>${precio(s.p)}</b>`:'');
+  $('okPolitica').textContent=DB.config.politica||'';
+  const msg=`Hola, acabo de reservar en ${DB.config.nombre}: ${s.n}, ${fechaLarga(r.fecha)} a las ${hhmm(r.ini)} con ${pro(p).n}. Código ${r.cod}. Nombre: ${nom}.`;
+  const a=$('bAvisarSpa');if(fonoOk(DB.config.wa)){a.href=waLink(DB.config.wa,msg);a.style.display=''}else a.style.display='none';
+  descargar($('bIcs'),'reserva-'+r.cod+'.ics','text/calendar',ics(r));
+  ['inNombre','inFono','inMail'].forEach(i=>$(i).value='');$('inConsent').checked=false;
   ir('p-ok');
 };
+function ics(r){const s=serv(r.serv);const d=r.fecha.replace(/-/g,'');const t=m=>pad(Math.floor(m/60))+pad(m%60)+'00';
+  return['BEGIN:VCALENDAR','VERSION:2.0','PRODID:-//RG Beauty Spa//Reservas//ES','BEGIN:VEVENT','UID:'+r.id+'@rgspa','DTSTAMP:'+new Date().toISOString().replace(/[-:]/g,'').slice(0,15)+'Z','DTSTART:'+d+'T'+t(r.ini),'DTEND:'+d+'T'+t(r.fin),'SUMMARY:'+s.n+' en '+DB.config.nombre,'LOCATION:'+(DB.config.dir||''),'DESCRIPTION:Código '+r.cod,'BEGIN:VALARM','TRIGGER:-P1D','ACTION:DISPLAY','DESCRIPTION:Recordatorio de tu hora','END:VALARM','END:VEVENT','END:VCALENDAR'].join('\r\n')}
+$('bOtra').onclick=()=>{st.serv=null;st.hora=null;ir('p-servicio')};
 
-// ---------- Recordatorio ----------
-document.getElementById('bVerRecordatorio').onclick=()=>{pintarWA();ir('p-recordatorio')};
-function pintarWA(extra){
-  const r=st.ultima;if(!r)return;const s=serv(r.serv);const d=DIAS.find(x=>key(x)===r.fecha);
-  let h=`<div class="burbuja">Hola ${r.nombre} 👋 Te recordamos tu hora en RG Beauty Spa:<br><b>${s.n}</b><br>${fechaLarga(d)} a las <b>${hhmm(r.ini)}</b><br>¿Nos confirmas tu asistencia?<div class="hr">10:00</div></div>`;
-  if(!extra)h+=`<div class="wa-botones"><button data-w="si">Sí, asistiré</button><button data-w="rep">Cambiar día u hora</button><button data-w="no">Cancelar mi hora</button></div>`;
-  else h+=extra;
-  const c=document.getElementById('waChat');c.innerHTML=h;
-  c.querySelectorAll('[data-w]').forEach(b=>b.onclick=()=>{
-    if(b.dataset.w==='si'){r.confirmada=true;pintarWA(`<div class="burbuja yo">Sí, asistiré</div><div class="burbuja">¡Gracias! Te esperamos 😊<div class="hr">10:01</div></div>`)}
-    if(b.dataset.w==='no'){r.estado='cancelada';pintarWA(`<div class="burbuja yo">Cancelar mi hora</div><div class="burbuja">Listo, tu hora quedó cancelada y se liberó para otra clienta. Cuando quieras, puedes volver a reservar desde el enlace.<div class="hr">10:01</div></div>`)}
-    if(b.dataset.w==='rep'){r.estado='cancelada';st.serv=r.serv;st.dia=r.fecha;st.hora=null;inNombre.value=r.nombre;inFono.value=r.fono;ir('p-fecha')}
+// ===================== Mis reservas =====================
+$('bBuscar').onclick=()=>{
+  const f=normFono($('inBuscar').value);const hoyK=ymd(hoy());
+  const l=DB.reservas.filter(r=>r.fono===f&&r.estado==='activa'&&r.fecha>=hoyK).sort((a,b)=>(a.fecha+hhmm(a.ini)).localeCompare(b.fecha+hhmm(b.ini)));
+  $('misLista').innerHTML=l.length?l.map(r=>`<div class="tarjeta"><span><b>${esc(serv(r.serv).n)}</b><small>${fechaLarga(r.fecha)} · ${hhmm(r.ini)} · ${esc(pro(r.pro).n)}</small></span><button class="mini r" data-c="${r.id}">Cancelar</button></div>`).join(''):'<div class="aviso info">No encontramos reservas próximas con ese número.</div>';
+  $('misLista').querySelectorAll('[data-c]').forEach(b=>b.onclick=()=>{
+    modal(`<h2>¿Cancelar esta hora?</h2><p class="sub">Quedará libre para otra clienta.</p><button class="btn" id="bSiC">Sí, cancelar</button><button class="btn sec" onclick="cerrarModal()">No</button>`);
+    $('bSiC').onclick=()=>{const r=DB.reservas.find(x=>x.id===b.dataset.c);r.estado='cancelada';r.canceladaPor='clienta';guardar();cerrarModal();$('bBuscar').click()};
+  });
+};
+
+// ===================== Administración =====================
+let diaPanel=ymd(hoy());let secAdmin='agenda';
+document.querySelectorAll('#subtabs [data-s]').forEach(b=>b.onclick=()=>{secAdmin=b.dataset.s;pintarAdmin()});
+function pintarAdmin(){
+  if(!adminOk){verVista('reservar');return}
+  document.querySelectorAll('#subtabs [data-s]').forEach(b=>b.classList.toggle('on',b.dataset.s===secAdmin));
+  document.querySelectorAll('.sec-admin').forEach(s=>s.style.display=s.id==='s-'+secAdmin?(s.classList.contains('caja')?'block':'flex'):'none');
+  document.body.classList.toggle('modo-test',!!DB.config.test);
+  ({agenda:pintarAgenda,nueva:pintarNueva,clientas:pintarClientas,ajustes:pintarAjustes,datos:()=>{}})[secAdmin]();
+}
+$('leyenda').innerHTML=Object.entries(COLOR).map(([k,c])=>`<span><i style="background:${c}"></i>${k}</span>`).join('')+'<span><i style="background:#f6e2b9;border-radius:2px"></i>Tiempo muerto</span>';
+$('inDiaPanel').onchange=e=>{if(e.target.value){diaPanel=e.target.value;pintarAgenda()}};
+const mover=n=>{const d=deYmd(diaPanel);d.setDate(d.getDate()+n);diaPanel=ymd(d);pintarAgenda()};
+$('bDiaAnt').onclick=()=>mover(-1);$('bDiaSig').onclick=()=>mover(1);$('bHoy').onclick=()=>{diaPanel=ymd(hoy());pintarAgenda()};
+function pintarAgenda(){
+  $('inDiaPanel').value=diaPanel;
+  const h=horario(diaPanel);const del=DB.reservas.filter(r=>r.fecha===diaPanel);
+  const clientas=del.filter(r=>r.canal!=='Bloqueo');
+  let minRes=0,muerto=0,tras=0;
+  DB.pros.forEach(p=>{
+    const a=del.filter(r=>r.pro===p.id&&ocupa(r)).sort((x,y)=>x.ini-y.ini);
+    a.filter(r=>r.canal!=='Bloqueo').forEach(r=>minRes+=r.fin-r.ini);
+    for(let i=1;i<a.length;i++)muerto+=Math.max(0,a[i].ini-a[i-1].fin);
+    a.forEach((x,i)=>a.slice(i+1).forEach(y=>{if(x.ini<y.fin&&x.fin>y.ini)tras++}));
+  });
+  const disp=h?(h.c-h.a)*DB.pros.length:0;
+  const canc=clientas.filter(r=>r.estado==='cancelada').length,ns=clientas.filter(r=>r.estado==='noshow').length;
+  $('kpis').innerHTML=`<div class="kpi"><div class="n">${disp?Math.round(minRes/disp*100):0}%</div><div class="l">Ocupación del día</div></div>
+  <div class="kpi"><div class="n">${clientas.filter(ocupa).length}</div><div class="l">Reservas</div></div>
+  <div class="kpi"><div class="n">${canc}</div><div class="l">Cancelaciones</div></div>
+  <div class="kpi ${ns?'mal':''}"><div class="n">${ns}</div><div class="l">No-show</div></div>
+  <div class="kpi"><div class="n">${muerto} min</div><div class="l">Tiempo muerto</div></div>
+  <div class="kpi ${tras?'mal':'meta'}"><div class="n">${tras}</div><div class="l">Traslapes (meta 0)</div></div>`;
+  // línea de tiempo
+  if(!h){$('agenda').innerHTML='<p class="vacio">El spa está cerrado este día según el horario.</p>'}
+  else if(!DB.pros.length){$('agenda').innerHTML='<p class="vacio">Agrega profesionales en Ajustes.</p>'}
+  else{
+    const tot=h.c-h.a;
+    $('agenda').innerHTML=DB.pros.map(p=>{
+      const a=del.filter(r=>r.pro===p.id&&ocupa(r)).sort((x,y)=>x.ini-y.ini);
+      let hu='';for(let i=1;i<a.length;i++)if(a[i].ini>a[i-1].fin)hu+=`<div class="hueco" style="left:${(a[i-1].fin-h.a)/tot*100}%;width:${(a[i].ini-a[i-1].fin)/tot*100}%" title="${a[i].ini-a[i-1].fin} min libres"></div>`;
+      const bl=a.map(r=>`<button class="bloque ${r.estado}" data-r="${r.id}" style="left:${Math.max(0,(r.ini-h.a)/tot*100)}%;width:${(r.fin-r.ini)/tot*100}%;background:${COLOR[r.canal]||'var(--web)'}" title="${esc(r.nombre||'Bloqueo')} · ${esc(serv(r.serv).n)}"><b>${hhmm(r.ini)}</b> ${esc(r.canal==='Bloqueo'?'Bloqueado':r.nombre)}<br>${r.canal==='Bloqueo'?'':esc(serv(r.serv).n)}</button>`).join('');
+      let eje='';for(let t=Math.ceil(h.a/60)*60;t<=h.c;t+=60)eje+=`<span>${hhmm(t)}</span>`;
+      return`<div><b style="font-size:14px">${esc(p.n)}</b> <span class="sub">${esc(p.r||'')}</span><div class="linea-tiempo">${hu}${bl}</div><div class="eje">${eje}</div></div>`;
+    }).join('');
+    $('agenda').querySelectorAll('[data-r]').forEach(b=>b.onclick=()=>accion(b.dataset.r));
+  }
+  // lista del día
+  $('tituloLista').textContent='Reservas del '+fechaLarga(diaPanel).toLowerCase();
+  const l=del.slice().sort((a,b)=>a.ini-b.ini);
+  $('listaDia').innerHTML=l.length?`<table><thead><tr><th>Hora</th><th>Clienta</th><th>Servicio</th><th>Profesional</th><th>Canal</th><th>Estado</th><th></th></tr></thead><tbody>${l.map(r=>`<tr><td>${hhmm(r.ini)}–${hhmm(r.fin)}</td><td>${esc(r.nombre||'—')}<br><span class="sub">${r.fono?"+"+esc(r.fono):""}</span></td><td>${r.canal==='Bloqueo'?'Bloqueo':esc(serv(r.serv).n)}</td><td>${esc(pro(r.pro).n)}</td><td>${esc(r.canal)}</td><td><span class="estado e-${r.estado}">${{activa:'Agendada',asistio:'Asistió',noshow:'No llegó',cancelada:'Cancelada'}[r.estado]}</span></td><td><button class="mini" data-r="${r.id}">Gestionar</button></td></tr>`).join('')}</tbody></table>`:'<p class="vacio">No hay reservas este día.</p>';
+  $('listaDia').querySelectorAll('[data-r]').forEach(b=>b.onclick=()=>accion(b.dataset.r));
+  // recordatorios para mañana
+  const m=new Date(hoy());m.setDate(m.getDate()+1);const mk=ymd(m);
+  const rec=DB.reservas.filter(r=>r.fecha===mk&&r.estado==='activa'&&r.canal!=='Bloqueo'&&r.fono).sort((a,b)=>a.ini-b.ini);
+  $('listaRec').innerHTML=rec.length?`<table><tbody>${rec.map(r=>`<tr><td>${hhmm(r.ini)}</td><td>${esc(r.nombre)}</td><td>${esc(serv(r.serv).n)}</td><td>${r.recordado?'<span class="estado e-asistio">Enviado</span>':''}</td><td><a class="mini wa" target="_blank" rel="noopener" data-rec="${r.id}" href="${waLink(r.fono,textoRecordatorio(r))}">Enviar recordatorio</a></td></tr>`).join('')}</tbody></table>`:'<p class="vacio">No hay reservas para mañana.</p>';
+  $('listaRec').querySelectorAll('[data-rec]').forEach(a=>a.addEventListener('click',()=>{const r=DB.reservas.find(x=>x.id===a.dataset.rec);r.recordado=true;guardar();setTimeout(pintarAgenda,300)}));
+  // testeo
+  $('tablaTest').innerHTML=DB.test.length?`<table><thead><tr><th>#</th><th>Fecha</th><th>Tiempo de reserva</th><th>Intentos en hora ocupada</th><th>Meta ≤ 3 min</th></tr></thead><tbody>${DB.test.map((t,i)=>{const s=Math.round((t.fin-t.ini)/1000);return`<tr><td>${i+1}</td><td>${new Date(t.ini).toLocaleString('es-CL')}</td><td>${Math.floor(s/60)} min ${s%60} s</td><td>${t.ocupadas}</td><td>${s<=180?'Cumple':'No cumple'}</td></tr>`}).join('')}</tbody></table><button class="mini r" id="bLimpiarTest" style="margin-top:8px">Limpiar registro</button>`:'<p class="vacio">Sin intentos registrados. Cada reserva hecha desde "Reservar" se registra aquí.</p>';
+  if($('bLimpiarTest'))$('bLimpiarTest').onclick=()=>{DB.test=[];guardar();pintarAgenda()};
+}
+function textoRecordatorio(r){return`Hola ${r.nombre}, te recordamos tu hora en ${DB.config.nombre}: ${serv(r.serv).n}, ${fechaLarga(r.fecha).toLowerCase()} a las ${hhmm(r.ini)}. ¿Nos confirmas tu asistencia? Si necesitas cambiarla, respóndenos por aquí.`}
+function accion(id){
+  const r=DB.reservas.find(x=>x.id===id);if(!r)return;
+  const bloqueo=r.canal==='Bloqueo';
+  modal(`<h2>${bloqueo?'Horario bloqueado':esc(r.nombre)}</h2><p class="sub">${bloqueo?'':esc(serv(r.serv).n)+' · '}${fechaLarga(r.fecha)} · ${hhmm(r.ini)} a ${hhmm(r.fin)} · ${esc(pro(r.pro).n)}${bloqueo?'':' · llegó por '+esc(r.canal)}${r.cod?' · '+r.cod:''}</p>
+  ${bloqueo?'':`<button class="btn" data-a="asistio">Asistió</button><button class="btn sec" data-a="noshow">No llegó</button>${r.fono?`<a class="btn wa" target="_blank" rel="noopener" href="${waLink(r.fono,textoRecordatorio(r))}">Escribirle por WhatsApp</a>`:''}<button class="btn sec" data-a="activa">Volver a "agendada"</button>`}
+  <button class="btn sec" data-a="cancelada">${bloqueo?'Quitar bloqueo':'Cancelar y liberar la hora'}</button>
+  <button class="link" onclick="cerrarModal()">Cerrar</button>`);
+  document.querySelectorAll('#modalCont [data-a]').forEach(b=>b.onclick=()=>{
+    if(bloqueo&&b.dataset.a==='cancelada')DB.reservas=DB.reservas.filter(x=>x.id!==id);else r.estado=b.dataset.a;
+    guardar();cerrarModal();pintarAgenda();
   });
 }
-
-// ---------- Mis reservas ----------
-document.getElementById('bMisRes').onclick=()=>{misLista.innerHTML='';ir('p-mis')};
-document.getElementById('bBuscar').onclick=()=>{
-  const f=inBuscarFono.value.replace(/\D/g,'');const l=RES.filter(r=>r.fono.replace(/\D/g,'')===f&&r.estado==='activa');
-  misLista.innerHTML=l.length?l.map(r=>{const d=DIAS.find(x=>key(x)===r.fecha);return`<div class="tarjeta"><span><b>${serv(r.serv).n}</b><small>${fechaLarga(d)} · ${hhmm(r.ini)}</small></span><button class="mini" data-c="${r.id}">Cancelar</button></div>`}).join(''):'<div class="aviso info">No encontramos reservas activas con ese número.</div>';
-  misLista.querySelectorAll('[data-c]').forEach(b=>b.onclick=()=>{RES.find(r=>r.id==b.dataset.c).estado='cancelada';document.getElementById('bBuscar').click()});
+// Nueva reserva manual
+function pintarNueva(){
+  $('mServ').innerHTML=DB.servicios.map(s=>`<option value="${s.id}">${esc(s.n)} (${s.d} min)</option>`).join('');
+  $('mPro').innerHTML=DB.pros.map(p=>`<option value="${p.id}">${esc(p.n)}</option>`).join('');
+  if(!$('mFecha').value)$('mFecha').value=diaPanel;
+  if(!$('mHora').value)$('mHora').value='10:00';
+  sincBloqueo();
+}
+function sincBloqueo(){const b=$('mCanal').value==='Bloqueo';$('mDur').parentElement.style.display=b?'':'none';['mServ','mNombre','mFono'].forEach(i=>$(i).parentElement.style.display=b?'none':'')}
+$('mCanal').onchange=sincBloqueo;
+$('bManual').onclick=()=>{
+  const av=$('avisoManual');const fecha=$('mFecha').value,hora=$('mHora').value,bloq=$('mCanal').value==='Bloqueo';
+  if(!fecha||!hora){av.innerHTML='<div class="aviso err">Completa fecha y hora.</div>';return}
+  if(!DB.pros.length){av.innerHTML='<div class="aviso err">Primero agrega una profesional en Ajustes.</div>';return}
+  const nom=$('mNombre').value.trim();
+  if(!bloq&&!nom){av.innerHTML='<div class="aviso err">Escribe el nombre de la clienta.</div>';return}
+  const ini=aMin(hora),dur=bloq?Math.max(15,Number($('mDur').value)||60):serv($('mServ').value).d,fin=ini+dur,proId=$('mPro').value;
+  const h=horario(fecha);
+  if(!h)av.innerHTML='<div class="aviso info">Ojo: ese día está cerrado según el horario. Se guardará igual.</div>';
+  else if(ini<h.a||fin>h.c){av.innerHTML=`<div class="aviso err">Queda fuera del horario de atención (${hhmm(h.a)} a ${hhmm(h.c)}).</div>`;return}
+  const c=choca(fecha,proId,ini,fin);
+  if(c){av.innerHTML=`<div class="aviso err">No se guardó: choca con ${c.canal==='Bloqueo'?'un bloqueo':esc(c.nombre)} (${hhmm(c.ini)} a ${hhmm(c.fin)}). Elige otra hora u otra profesional.</div>`;return}
+  const fono=$('mFono').value.trim();
+  DB.reservas.push({id:nuevoId(),cod:bloq?'':'RG-'+pad(DB.sec++).padStart(4,'0'),fecha,ini,fin,pro:proId,serv:bloq?'':$('mServ').value,nombre:bloq?'':nom,fono:fono?normFono(fono):'',email:'',canal:$('mCanal').value,estado:'activa',creada:new Date().toISOString()});
+  guardar();$('mNombre').value='';$('mFono').value='';
+  av.innerHTML=`<div class="aviso ok">${bloq?'Horario bloqueado':'Reserva guardada'}: ${fechaLarga(fecha)}, ${hhmm(ini)} a ${hhmm(fin)}. Esa hora ya no aparece libre para las clientas.</div>`;
+  diaPanel=fecha;
 };
-
-// ---------- Reserva asistida ----------
-document.getElementById('bAsistida').onclick=()=>{asServ.innerHTML=SERVICIOS.map(s=>`<option value="${s.id}">${s.n}</option>`).join('');avisoAs.innerHTML='';ir('p-asistida')};
-document.getElementById('bEnviarAs').onclick=()=>{
-  if(!asNombre.value.trim()||asFono.value.replace(/\D/g,'').length<8){avisoAs.innerHTML='<div class="aviso err">Completa tu nombre y celular.</div>';return}
-  if(!asConsent.checked){avisoAs.innerHTML='<div class="aviso err">Necesitamos tu autorización para contactarte.</div>';return}
-  PEND.push({id:Date.now(),nombre:asNombre.value.trim(),fono:asFono.value.trim(),serv:asServ.value,cuando:asCuando.value});
-  avisoAs.innerHTML='<div class="aviso ok">¡Recibido! Te escribiremos por WhatsApp para confirmar tu hora.</div>';
-};
-
-// ---------- Panel ----------
-let diaPanel=key(DIAS[0]);
-function pintarPanel(){
-  const dp=document.getElementById('diasPanel');
-  dp.innerHTML=DIAS.map(d=>`<button class="dia ${diaPanel===key(d)?'sel':''}" data-d="${key(d)}"><small>${DIAS_N[d.getDay()]}</small><b>${d.getDate()}</b><small>${MESES[d.getMonth()]}</small></button>`).join('');
-  dp.querySelectorAll('[data-d]').forEach(b=>b.onclick=()=>{diaPanel=b.dataset.d;pintarPanel()});
-  const d=DIAS.find(x=>key(x)===diaPanel);const fin=cierre(d);const total=fin-APERTURA;
-  const delDia=RES.filter(r=>r.fecha===diaPanel);
-  // KPIs
-  let minRes=0,muerto=0;
-  PROS.forEach(p=>{
-    const act=delDia.filter(r=>r.pro===p.id&&r.estado!=='cancelada').sort((a,b)=>a.ini-b.ini);
-    act.forEach(r=>minRes+=r.fin-r.ini);
-    for(let i=1;i<act.length;i++)muerto+=Math.max(0,act[i].ini-act[i-1].fin);
+// Clientas
+function pintarClientas(){
+  const m={};DB.reservas.filter(r=>r.fono&&r.canal!=='Bloqueo').forEach(r=>{const k=r.fono;m[k]=m[k]||{fono:k,nombre:r.nombre,n:0,ult:'',ns:0};m[k].n++;if(r.estado==='noshow')m[k].ns++;if(r.fecha>m[k].ult){m[k].ult=r.fecha;m[k].nombre=r.nombre}});
+  const l=Object.values(m).sort((a,b)=>b.ult.localeCompare(a.ult));
+  $('listaClientas').innerHTML=l.length?`<table><thead><tr><th>Nombre</th><th>Celular</th><th>Reservas</th><th>No-show</th><th>Última</th><th></th></tr></thead><tbody>${l.map(c=>`<tr><td>${esc(c.nombre)}</td><td>+${esc(c.fono)}</td><td>${c.n}</td><td>${c.ns}</td><td>${fechaLarga(c.ult)}</td><td><a class="mini wa" target="_blank" rel="noopener" href="${waLink(c.fono,'Hola '+c.nombre+', te escribimos de '+DB.config.nombre+'.')}">WhatsApp</a> <button class="mini r" data-b="${c.fono}">Borrar datos</button></td></tr>`).join('')}</tbody></table>`:'<p class="vacio">Todavía no hay clientas registradas.</p>';
+  $('listaClientas').querySelectorAll('[data-b]').forEach(b=>b.onclick=()=>{
+    modal(`<h2>¿Borrar los datos de esta clienta?</h2><p class="sub">Se quitan su nombre y celular de todas sus reservas. Las reservas quedan como "Clienta anónima" para no alterar la agenda ni los indicadores.</p><button class="btn" id="bSiB">Borrar datos</button><button class="btn sec" onclick="cerrarModal()">Cancelar</button>`);
+    $('bSiB').onclick=()=>{DB.reservas.forEach(r=>{if(r.fono===b.dataset.b){r.nombre='Clienta anónima';r.fono='';r.email=''}});guardar();cerrarModal();pintarClientas()};
   });
-  const ocup=Math.round(minRes/(total*PROS.length)*100);
-  const canc=delDia.filter(r=>r.estado==='cancelada').length,ns=delDia.filter(r=>r.estado==='noshow').length,act=delDia.filter(r=>r.estado!=='cancelada').length;
-  let tras=0;PROS.forEach(p=>{const a=delDia.filter(r=>r.pro===p.id&&r.estado!=='cancelada');a.forEach((x,i)=>a.slice(i+1).forEach(y=>{if(x.ini<y.fin&&x.fin>y.ini)tras++}))});
-  const web=delDia.filter(r=>r.canal==='Web'&&r.estado!=='cancelada').length;
-  document.getElementById('kpis').innerHTML=`
-    <div class="kpi"><div class="n">${ocup}%</div><div class="l">Ocupación del día</div><div class="d">${minRes} de ${total*PROS.length} min</div></div>
-    <div class="kpi"><div class="n">${act}</div><div class="l">Reservas activas</div><div class="d">${web} hechas por la clienta en línea</div></div>
-    <div class="kpi"><div class="n">${canc}</div><div class="l">Cancelaciones</div><div class="d">${delDia.length?Math.round(canc/delDia.length*100):0}% del total</div></div>
-    <div class="kpi"><div class="n">${ns}</div><div class="l">No-show</div><div class="d">Clientas que no llegaron</div></div>
-    <div class="kpi"><div class="n">${muerto} min</div><div class="l">Tiempo muerto</div><div class="d">Huecos entre citas</div></div>
-    <div class="kpi meta"><div class="n">${tras}</div><div class="l">Traslapes</div><div class="d">Meta del desafío: 0</div></div>`;
-  // Agenda
-  const ag=document.getElementById('agenda');
-  ag.innerHTML=PROS.map(p=>{
-    const lista=delDia.filter(r=>r.pro===p.id).sort((a,b)=>a.ini-b.ini);
-    const act=lista.filter(r=>r.estado!=='cancelada');
-    let hu='';for(let i=1;i<act.length;i++){if(act[i].ini>act[i-1].fin){hu+=`<div class="hueco" style="left:${(act[i-1].fin-APERTURA)/total*100}%;width:${(act[i].ini-act[i-1].fin)/total*100}%" title="Tiempo muerto ${act[i].ini-act[i-1].fin} min"></div>`}}
-    const bl=lista.map(r=>`<button class="bloque ${r.estado==='cancelada'?'cancelada':''} ${r.estado==='noshow'?'noshow':''}" data-r="${r.id}" style="left:${(r.ini-APERTURA)/total*100}%;width:${(r.fin-r.ini)/total*100}%;background:${COLOR[r.canal]};${r.nueva?'box-shadow:0 0 0 3px var(--rosa)':''}" title="${r.nombre} · ${serv(r.serv).n} · ${r.canal}"><b>${hhmm(r.ini)}</b> ${r.nombre}<br>${serv(r.serv).n}</button>`).join('');
-    let eje='';for(let t=APERTURA;t<=fin;t+=60)eje+=`<span>${hhmm(t)}</span>`;
-    return`<div class="col-pro"><h4>${p.n} <span class="sub">(${p.r})</span></h4><div class="linea-tiempo">${hu}${bl}</div><div class="eje">${eje}</div></div>`;
-  }).join('');
-  ag.querySelectorAll('[data-r]').forEach(b=>b.onclick=()=>accionReserva(+b.dataset.r));
-  // Formulario manual
-  mServ.innerHTML=SERVICIOS.map(s=>`<option value="${s.id}">${s.n} (${s.d} min)</option>`).join('');
-  mPro.innerHTML=PROS.map(p=>`<option value="${p.id}">${p.n}</option>`).join('');
-  let hs='';for(let t=APERTURA;t<fin;t+=30)hs+=`<option value="${t}">${hhmm(t)}</option>`;mHora.innerHTML=hs;
-  // Pendientes
-  const pc=document.getElementById('pendientes');
-  pc.innerHTML=PEND.length?PEND.map(x=>`<div class="pendiente"><span><b>${x.nombre}</b> · ${serv(x.serv).n}<br><span class="sub">${x.fono} · ${x.cuando}</span></span><button class="mini v" data-pe="${x.id}">Asignar hora</button></div>`).join(''):'<p class="sub">No hay solicitudes pendientes.</p>';
-  pc.querySelectorAll('[data-pe]').forEach(b=>b.onclick=()=>{const x=PEND.find(p=>p.id==b.dataset.pe);mNombre.value=x.nombre;mCanal.value='WhatsApp';mServ.value=x.serv;avisoManual.innerHTML='<div class="aviso info">Elige profesional y hora libre, y presiona Guardar. La solicitud se quitará de la lista.</div>';mNombre.dataset.pend=x.id;mNombre.scrollIntoView({behavior:'smooth',block:'center'})});
 }
-document.getElementById('bManual').onclick=()=>{
-  const nom=mNombre.value.trim();if(!nom){avisoManual.innerHTML='<div class="aviso err">Escribe el nombre de la clienta.</div>';return}
-  const s=serv(mServ.value),ini=+mHora.value,fin=ini+s.d;const d=DIAS.find(x=>key(x)===diaPanel);
-  if(fin>cierre(d)){avisoManual.innerHTML='<div class="aviso err">El servicio termina después del cierre.</div>';return}
-  if(ocupado(diaPanel,mPro.value,ini,fin)){
-    const choque=RES.find(x=>x.fecha===diaPanel&&x.pro===mPro.value&&x.estado!=='cancelada'&&ini<x.fin&&fin>x.ini);
-    avisoManual.innerHTML=`<div class="aviso err">No se guardó: choca con ${choque.nombre} (${hhmm(choque.ini)} a ${hhmm(choque.fin)}). Elige otra hora u otra profesional.</div>`;return}
-  RES.push({id:nId++,fecha:diaPanel,pro:mPro.value,serv:s.id,ini,fin,nombre:nom,fono:'',canal:mCanal.value,estado:'activa',nueva:true});
-  if(mNombre.dataset.pend){PEND=PEND.filter(p=>p.id!=mNombre.dataset.pend);delete mNombre.dataset.pend}
-  mNombre.value='';pintarPanel();avisoManual.innerHTML=`<div class="aviso ok">Reserva guardada a las ${hhmm(ini)}. La hora ya no aparece libre en la página de reservas.</div>`;
+// Ajustes
+function pintarAjustes(){
+  const c=DB.config;$('cNombre').value=c.nombre;$('cWa').value=c.wa;$('cDir').value=c.dir;$('cDias').value=c.dias;$('cPaso').value=String(c.paso);$('cPin').value=c.pin;$('cPol').value=c.politica;$('cTest').checked=!!c.test;
+  $('tHorario').innerHTML=[1,2,3,4,5,6,0].map(i=>{const h=c.horario[i];return`<tr><td>${DIAS_N[i]}</td><td><input type="checkbox" data-hon="${i}" ${h.on?'checked':''}></td><td><input type="time" data-ha="${i}" value="${h.a}" step="900"></td><td><input type="time" data-hc="${i}" value="${h.c}" step="900"></td></tr>`}).join('');
+  $('tServ').innerHTML=DB.servicios.map((s,i)=>`<tr><td><input type="text" data-sn="${i}" value="${esc(s.n)}" style="width:100%"></td><td><input type="number" data-sd="${i}" value="${s.d}" min="15" step="15" style="width:70px"></td><td><input type="number" data-sp="${i}" value="${s.p||''}" min="0" step="1000" placeholder="$" style="width:100px"></td><td><button class="mini r" data-sx="${i}">Quitar</button></td></tr>`).join('');
+  $('tPros').innerHTML=DB.pros.map((p,i)=>`<tr><td><input type="text" data-pn="${i}" value="${esc(p.n)}" style="width:100%"></td><td><input type="text" data-pr="${i}" value="${esc(p.r||'')}" style="width:100%"></td><td><button class="mini r" data-px="${i}">Quitar</button></td></tr>`).join('');
+  $('tServ').querySelectorAll('[data-sx]').forEach(b=>b.onclick=()=>{leerAjustes();DB.servicios.splice(+b.dataset.sx,1);pintarAjustes()});
+  $('tPros').querySelectorAll('[data-px]').forEach(b=>b.onclick=()=>{
+    const p=DB.pros[+b.dataset.px];const fut=DB.reservas.filter(r=>r.pro===p.id&&r.estado==='activa'&&r.fecha>=ymd(hoy())).length;
+    if(fut){alertar(`${esc(p.n)} tiene ${fut} reserva(s) próximas. Reasígnalas o cancélalas antes de quitarla.`);return}
+    leerAjustes();DB.pros.splice(+b.dataset.px,1);pintarAjustes()});
+}
+function leerAjustes(){
+  const c=DB.config;c.nombre=$('cNombre').value.trim()||'RG Beauty Spa';c.wa=$('cWa').value.trim();c.dir=$('cDir').value.trim();
+  c.dias=Math.min(60,Math.max(3,Number($('cDias').value)||21));c.paso=Number($('cPaso').value)||30;c.pin=$('cPin').value.trim()||'1234';c.politica=$('cPol').value.trim();c.test=$('cTest').checked;
+  document.querySelectorAll('[data-hon]').forEach(x=>{const i=+x.dataset.hon;c.horario[i].on=x.checked;c.horario[i].a=document.querySelector(`[data-ha="${i}"]`).value||'10:00';c.horario[i].c=document.querySelector(`[data-hc="${i}"]`).value||'19:00'});
+  DB.servicios.forEach((s,i)=>{const n=document.querySelector(`[data-sn="${i}"]`);if(!n)return;s.n=n.value.trim()||'Servicio';s.d=Math.max(15,Number(document.querySelector(`[data-sd="${i}"]`).value)||30);s.p=Number(document.querySelector(`[data-sp="${i}"]`).value)||0});
+  DB.pros.forEach((p,i)=>{const n=document.querySelector(`[data-pn="${i}"]`);if(!n)return;p.n=n.value.trim()||'Profesional';p.r=document.querySelector(`[data-pr="${i}"]`).value.trim()});
+}
+$('bAddServ').onclick=()=>{leerAjustes();DB.servicios.push({id:'s'+nuevoId(),n:'Nuevo servicio',d:60,p:0});pintarAjustes()};
+$('bAddPro').onclick=()=>{leerAjustes();DB.pros.push({id:'p'+nuevoId(),n:'Profesional '+(DB.pros.length+1),r:''});pintarAjustes()};
+$('bGuardarAjustes').onclick=()=>{
+  leerAjustes();
+  if(DB.config.wa&&!fonoOk(DB.config.wa)){$('avisoAjustes').textContent='Revisa el WhatsApp del spa: debe ser un celular chileno (9 1234 5678).';return}
+  const malos=[0,1,2,3,4,5,6].filter(i=>DB.config.horario[i].on&&aMin(DB.config.horario[i].a)>=aMin(DB.config.horario[i].c));
+  if(malos.length){$('avisoAjustes').textContent='Revisa el horario de '+malos.map(i=>DIAS_N[i]).join(', ')+': la hora de cierre debe ser después de la apertura.';return}
+  if(guardar()){$('avisoAjustes').textContent='Ajustes guardados.';pintarMarca();document.body.classList.toggle('modo-test',!!DB.config.test);setTimeout(()=>$('avisoAjustes').textContent='',3000)}
 };
-function accionReserva(id){
-  const r=RES.find(x=>x.id===id);const s=serv(r.serv);
-  modal(`<h2>${r.nombre}</h2><p class="sub">${s.n} · ${hhmm(r.ini)} a ${hhmm(r.fin)} · llegó por ${r.canal}${r.confirmada?' · confirmó por WhatsApp':''}</p>
-  <button class="btn" data-a="activa">Asistió / activa</button><button class="btn sec" data-a="noshow">No se presentó</button><button class="btn sec" data-a="cancelada">Cancelar y liberar hora</button><button class="link" onclick="cerrarModal()">Cerrar</button>`);
-  document.querySelectorAll('#modalCont [data-a]').forEach(b=>b.onclick=()=>{r.estado=b.dataset.a;cerrarModal();pintarPanel()});
+// Respaldo
+function csv(){
+  const q=v=>'"'+String(v??'').replace(/"/g,'""')+'"';
+  const filas=[['Código','Fecha','Inicio','Término','Clienta','Celular','Correo','Servicio','Profesional','Canal','Estado','Creada']].concat(
+    DB.reservas.slice().sort((a,b)=>(a.fecha+hhmm(a.ini)).localeCompare(b.fecha+hhmm(b.ini))).map(r=>[r.cod,r.fecha,hhmm(r.ini),hhmm(r.fin),r.nombre,r.fono,r.email,r.canal==='Bloqueo'?'Bloqueo':serv(r.serv).n,pro(r.pro).n,r.canal,r.estado,r.creada]));
+  return '﻿'+filas.map(f=>f.map(q).join(';')).join('\r\n');
 }
+$('bCsv').onclick=()=>descargar($('bCsv'),'reservas-'+ymd(new Date())+'.csv','text/csv',csv());
+$('bJson').onclick=()=>descargar($('bJson'),'respaldo-rgspa-'+ymd(new Date())+'.json','application/json',JSON.stringify(DB,null,1));
+$('inRestore').onchange=e=>{
+  const f=e.target.files[0];if(!f)return;const fr=new FileReader();
+  fr.onload=()=>{try{const d=JSON.parse(fr.result);if(!d.config||!Array.isArray(d.reservas))throw 0;localStorage.setItem(CLAVE,JSON.stringify(d));cargar();pintarMarca();$('avisoDatosAdm').innerHTML='<div class="aviso ok">Respaldo restaurado.</div>'}catch(x){$('avisoDatosAdm').innerHTML='<div class="aviso err">El archivo no es un respaldo válido.</div>'}};
+  fr.readAsText(f);e.target.value='';
+};
+$('bBorrarTodo').onclick=()=>{
+  modal(`<h2>¿Borrar todo?</h2><p class="sub">Se eliminan reservas, ajustes, servicios y profesionales de este navegador. Descarga un respaldo antes si lo necesitas.</p><button class="btn" id="bSiT">Borrar todo</button><button class="btn sec" onclick="cerrarModal()">Cancelar</button>`);
+  $('bSiT').onclick=()=>{DB=base();guardar();pintarMarca();cerrarModal();$('avisoDatosAdm').innerHTML='<div class="aviso ok">Datos borrados.</div>'};
+};
+$('bEjemplo').onclick=()=>{
+  if(DB.pros.length<2)DB.pros.push({id:'p'+nuevoId(),n:'Profesional 2',r:'Colaboradora'});
+  const nombres=['Valentina','Carolina','Francisca','Javiera','Constanza','Paula','Daniela','Fernanda','Catalina','Antonia','Gloria','Patricia'];
+  const canales=['WhatsApp','WhatsApp','Instagram','Instagram','Teléfono','Presencial','Web'];
+  let n=0,seed=7;const rnd=()=>{seed=(seed*1103515245+12345)%2147483648;return seed/2147483648};
+  diasReservables().slice(0,6).forEach(f=>{const h=horario(f);DB.pros.forEach(p=>{let t=h.a;while(t<h.c-30){if(rnd()<.5){const s=DB.servicios[Math.floor(rnd()*DB.servicios.length)];if(!s||t+s.d>h.c)break;if(!choca(f,p.id,t,t+s.d)){DB.reservas.push({id:nuevoId(),cod:'RG-'+pad(DB.sec++).padStart(4,'0'),fecha:f,ini:t,fin:t+s.d,pro:p.id,serv:s.id,nombre:nombres[Math.floor(rnd()*nombres.length)]+' (ejemplo)',fono:'569'+(10000000+Math.floor(rnd()*89999999)),email:'',canal:canales[Math.floor(rnd()*canales.length)],estado:'activa',creada:new Date().toISOString(),ejemplo:true});n++}t+=s.d}else t+=30}})});
+  guardar();$('avisoDatosAdm').innerHTML=`<div class="aviso ok">Se agregaron ${n} reservas de ejemplo en los próximos días. Se reconocen porque el nombre dice "(ejemplo)".</div>`;
+};
 
-// ---------- Modal ----------
-function modal(h){modalCont.innerHTML=h;document.getElementById('modal').classList.add('on')}
-function cerrarModal(){document.getElementById('modal').classList.remove('on')}
-document.getElementById('modal').onclick=e=>{if(e.target.id==='modal')cerrarModal()};
+$('bQuitarEj').onclick=()=>{const n=DB.reservas.filter(r=>r.ejemplo).length;DB.reservas=DB.reservas.filter(r=>!r.ejemplo);guardar();$('avisoDatosAdm').innerHTML=`<div class="aviso ok">Se quitaron ${n} reservas de ejemplo.</div>`};
 
-function resetFlujo(){
-  if(intentoActual)testFin(false);
-  st.serv=null;st.pro='cualquiera';st.dia=null;st.hora=null;
-  ['inNombre','inFono','inMail'].forEach(i=>document.getElementById(i).value='');inConsent.checked=false;
-}
+// ===================== Inicio =====================
+pintarMarca();ir('p-servicio');
+if(adminOk)$('tabAdmin').style.display='';
 </script>
 </body>
 </html>
