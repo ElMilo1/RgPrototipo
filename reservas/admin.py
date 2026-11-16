@@ -1,6 +1,7 @@
 from django.contrib import admin
 
-from .models import Bloqueo, Clienta, HistorialReserva, HorarioAtencion, Profesional, Reserva, Servicio
+from .models import (Bloqueo, Clienta, HistorialReserva, HorarioAtencion, Profesional, Reserva, Servicio,
+                     SolicitudWhatsApp)
 
 
 @admin.register(Servicio)
@@ -50,7 +51,7 @@ class ReservaAdmin(admin.ModelAdmin):
     list_filter = ("estado", "canal", "fecha", "profesional")
     search_fields = ("codigo", "clienta__nombre", "clienta__telefono")
     date_hierarchy = "fecha"
-    readonly_fields = ("codigo", "hora_fin", "creada_en", "actualizada_en", "creada_por")
+    readonly_fields = ("codigo", "hora_fin", "confirmada_en", "creada_en", "actualizada_en", "creada_por")
     autocomplete_fields = ("clienta",)
     inlines = [HistorialInline]
 
@@ -83,3 +84,9 @@ class HistorialAdmin(admin.ModelAdmin):
 
     def has_delete_permission(self, request, obj=None):
         return False
+
+
+@admin.register(SolicitudWhatsApp)
+class SolicitudAdmin(admin.ModelAdmin):
+    list_display = ("nombre", "telefono", "servicio", "preferencia", "creada_en", "atendida", "reserva")
+    list_filter = ("atendida",)

@@ -1,77 +1,70 @@
-{% extends "reservas/base.html" %}
+{% extends "reservas/base.html" %}{% load agenda_tags %}
 {% block titulo %}Reservar{% endblock %}
 {% block contenido %}
-<div class="row justify-content-center"><div class="col-lg-7">
-<h1 class="h3 mb-1">Reserva tu hora</h1>
-<p class="text-muted">Solo aparecen las horas libres. Recibes un código de reserva al confirmar.</p>
+<div class="telefono">
+  {% include "reservas/_telefono_top.html" %}
 
-<form method="get" class="card card-body mb-3" id="filtros">
-  <h2 class="h6"><span class="paso">1</span>Servicio y profesional</h2>
-  <div class="row g-2">
-    <div class="col-sm-7">
-      <select name="servicio" class="form-select" onchange="this.form.submit()">
-        <option value="">Elige un servicio</option>
-        {% for s in servicios %}<option value="{{ s.pk }}" {% if s == servicio %}selected{% endif %}>{{ s.nombre }} · {{ s.duracion_min }} min{% if s.precio %} · ${{ s.precio }}{% endif %}</option>{% endfor %}
-      </select>
+  {% if paso == 1 %}
+  <div class="pantalla">
+    <h2>Hola, ¿qué te gustaría reservar?</h2>
+    <p class="sub">Ves solo las horas que están libres. Recibes la confirmación al momento y un recordatorio el día antes.</p>
+    <div class="lista">
+      {% for s in servicios %}
+      <a class="tarjeta {% if s == servicio %}sel{% endif %}" href="{% qs servicio=s.pk paso=1 %}"><span><b>{{ s.nombre }}</b><small>{% if s.precio %}${{ s.precio }}{% else %}&nbsp;{% endif %}</small></span><span class="chip">{{ s.duracion_min }} min</span></a>
+      {% endfor %}
     </div>
-    <div class="col-sm-5">
-      <select name="profesional" class="form-select" onchange="this.form.submit()">
-        <option value="">Sin preferencia</option>
-        {% for p in profesionales %}<option value="{{ p.pk }}" {% if p == profesional %}selected{% endif %}>{{ p.nombre }}</option>{% endfor %}
-      </select>
+    <h2>¿Con quién?</h2>
+    <div class="lista">
+      <a class="tarjeta {% if not profesional %}sel{% endif %}" href="{% qs servicio=servicio.pk profesional='' paso=1 %}"><span><b>Sin preferencia</b><small>Te mostramos más horas</small></span></a>
+      {% for p in profesionales %}
+      <a class="tarjeta {% if p == profesional %}sel{% endif %}" href="{% qs servicio=servicio.pk profesional=p.pk paso=1 %}"><span><b>{{ p.nombre }}</b><small>{{ p.rol }}</small></span></a>
+      {% endfor %}
     </div>
+    {% if servicio %}<a class="btn" href="{% qs %}">Continuar</a>{% else %}<span class="btn off">Continuar</span>{% endif %}
+    <div class="aviso info">¿Prefieres que te atendamos personalmente? Escríbenos y te confirmamos la hora nosotras.</div>
+    <a class="btn wa" href="{% url 'asistida' %}">Prefiero reservar por WhatsApp</a>
   </div>
-  {% if servicio %}
-  <h2 class="h6 mt-3"><span class="paso">2</span>Día</h2>
-  <div class="d-flex flex-wrap gap-2">
-    {% for d in dias %}
-      <input type="radio" class="btn-check" name="fecha" id="d{{ forloop.counter }}" value="{{ d.isoformat }}" {% if d == fecha %}checked{% endif %} onchange="this.form.submit()">
-      <label class="btn btn-sm btn-outline-rosa" for="d{{ forloop.counter }}">{{ d|date:"D d M" }}</label>
-    {% endfor %}
-  </div>
-  <h2 class="h6 mt-3"><span class="paso">3</span>Hora</h2>
-  <div class="d-flex flex-wrap gap-2">
-    {% for h, libre in horas %}
-      {% if libre %}
-        <input type="radio" class="btn-check" name="hora" id="h{{ forloop.counter }}" value="{{ h|time:'H:i' }}" {% if h == hora %}checked{% endif %} onchange="this.form.submit()">
-        <label class="btn btn-sm btn-outline-rosa" for="h{{ forloop.counter }}">{{ h|time:"H:i" }}</label>
-      {% else %}
-        <button type="button" class="btn btn-sm btn-light hora-ocupada" disabled title="Hora tomada">{{ h|time:"H:i" }}</button>
-      {% endif %}
-    {% empty %}
-      <p class="text-muted mb-0">No quedan horas para este día. Prueba con otro.</p>
-    {% endfor %}
-  </div>
-  {% endif %}
-  <noscript><button class="btn btn-outline-rosa mt-3">Ver horas</button></noscript>
-</form>
 
-{% if servicio and fecha and hora %}
-<form method="post" class="card card-body" novalidate>
-  {% csrf_token %}
-  <input type="hidden" name="servicio" value="{{ servicio.pk }}">
-  <input type="hidden" name="profesional" value="{{ profesional.pk|default:'' }}">
-  <input type="hidden" name="fecha" value="{{ fecha.isoformat }}">
-  <input type="hidden" name="hora" value="{{ hora|time:'H:i' }}">
-  <h2 class="h6"><span class="paso">4</span>Tus datos</h2>
-  <p class="small text-muted">{{ servicio.nombre }} · {{ fecha|date:"l d \d\e F" }} a las {{ hora|time:"H:i" }}</p>
-  {% for campo in form %}
-    {% if campo.name == "consentimiento" %}
-      <div class="form-check mb-2 small">
-        <input class="form-check-input {% if campo.errors %}is-invalid{% endif %}" type="checkbox" name="consentimiento" id="cons" {% if campo.value %}checked{% endif %}>
-        <label class="form-check-label text-muted" for="cons">{{ campo.label }}</label>
-        {% for e in campo.errors %}<div class="invalid-feedback">{{ e }}</div>{% endfor %}
-      </div>
-    {% else %}
-      <div class="mb-2">
-        <label class="form-label small mb-1" for="{{ campo.id_for_label }}">{{ campo.label }}</label>
-        <input class="form-control {% if campo.errors %}is-invalid{% endif %}" name="{{ campo.html_name }}" id="{{ campo.id_for_label }}" value="{{ campo.value|default:'' }}" {% if campo.name == 'telefono' %}placeholder="9 1234 5678" inputmode="tel"{% endif %}>
-        {% for e in campo.errors %}<div class="invalid-feedback">{{ e }}</div>{% endfor %}
-      </div>
+  {% elif paso == 2 %}
+  <div class="pantalla">
+    <a class="volver" href="{% qs paso=1 %}">‹ Volver</a>
+    <h2>Elige día y hora</h2>
+    <p class="sub">{{ servicio.nombre }} · {{ servicio.duracion_min }} min · {% if profesional %}{{ profesional.nombre }}{% else %}sin preferencia{% endif %}</p>
+    <div class="dias">
+      {% for d in dias %}<a class="dia {% if d == fecha %}sel{% endif %}" href="{% qs fecha=d %}"><small>{{ d|dia_corto }}</small><b>{{ d.day }}</b><small>{{ d|mes_corto }}</small></a>{% endfor %}
+    </div>
+    <div class="leyenda"><span><i></i>Libre</span><span><i style="background:#f1ecee;border-style:dashed"></i>Ocupada</span></div>
+    {% if manana %}<div class="franja">Mañana</div><div class="horas">{% for h, libre in manana %}<a class="hora {% if not libre %}ocupada{% endif %}" href="{% if libre %}{% qs hora=h %}{% else %}{% qs ocupada=h %}{% endif %}">{{ h|hm }}</a>{% endfor %}</div>{% endif %}
+    {% if tarde %}<div class="franja">Tarde</div><div class="horas">{% for h, libre in tarde %}<a class="hora {% if not libre %}ocupada{% endif %}" href="{% if libre %}{% qs hora=h %}{% else %}{% qs ocupada=h %}{% endif %}">{{ h|hm }}</a>{% endfor %}</div>{% endif %}
+    {% if not manana and not tarde %}<p class="sub">No quedan horas este día. Prueba con otro.</p>{% endif %}
+    {% if ocupada %}
+      <div class="aviso err">Las {{ ocupada|hm }} ya está tomada por otra clienta, por eso no se puede reservar.
+        {% if alternativas %}Horas libres cercanas: {% for a in alternativas %}<a href="{% qs hora=a %}"><b>{{ a|hm }}</b></a>{% if not forloop.last %} o {% endif %}{% endfor %}.{% else %}Prueba con otro día.{% endif %}</div>
     {% endif %}
-  {% endfor %}
-  <button class="btn btn-rosa w-100 mt-2">Confirmar reserva</button>
-</form>
-{% endif %}
-</div></div>
+    <span class="btn off">Continuar</span>
+  </div>
+
+  {% else %}
+  <form class="pantalla" method="post" novalidate>
+    {% csrf_token %}
+    <input type="hidden" name="servicio" value="{{ servicio.pk }}"><input type="hidden" name="profesional" value="{{ pid }}">
+    <input type="hidden" name="fecha" value="{{ fecha.isoformat }}"><input type="hidden" name="hora" value="{{ hora|hm }}">
+    <a class="volver" href="{% qs %}">‹ Volver</a>
+    <h2>Tus datos</h2>
+    <p class="sub">{{ servicio.nombre }} · {{ fecha|fecha_larga }} a las {{ hora|hm }}</p>
+    {% for e in errores %}<div class="aviso err">{{ e }}</div>{% endfor %}
+    <label class="campo">Nombre<input type="text" name="nombre" value="{{ form.nombre.value|default:'' }}" placeholder="Ej: Camila"></label>
+    {% for e in form.nombre.errors %}<span class="error">{{ e }}</span>{% endfor %}
+    <label class="campo">Celular<input type="tel" name="telefono" value="{{ form.telefono.value|default:'' }}" placeholder="9 1234 5678" inputmode="tel"></label>
+    {% for e in form.telefono.errors %}<span class="error">{{ e }}</span>{% endfor %}
+    <label class="campo">Correo (opcional)<input type="email" name="email" value="{{ form.email.value|default:'' }}" placeholder="nombre@correo.cl"></label>
+    {% for e in form.email.errors %}<span class="error">{{ e }}</span>{% endfor %}
+    <label class="consent"><input type="checkbox" name="consentimiento" {% if form.consentimiento.value %}checked{% endif %}><span>{{ form.consentimiento.label }}</span></label>
+    {% for e in form.consentimiento.errors %}<span class="error">{{ e }}</span>{% endfor %}
+    <p class="sub">Si no puedes asistir, avísanos con 24 horas de anticipación para liberar la hora.</p>
+    <button class="btn">Confirmar reserva</button>
+  </form>
+  {% endif %}
+  {% include "reservas/_pie_tel.html" %}
+</div>
 {% endblock %}

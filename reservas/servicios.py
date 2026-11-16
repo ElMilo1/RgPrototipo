@@ -39,8 +39,10 @@ def horas_del_dia(fecha, servicio, profesional=None):
 
 
 def asignar_profesional(fecha, inicio, servicio):
-    """Si la clienta no elige, toma la primera profesional libre."""
-    for pro in Profesional.objects.filter(activo=True):
+    """Si la clienta no elige, toma la profesional libre con menos reservas ese día."""
+    pros = sorted(Profesional.objects.filter(activo=True),
+                  key=lambda p: Reserva.objects.filter(fecha=fecha, profesional=p, estado__in=ESTADOS_ACTIVOS).count())
+    for pro in pros:
         prueba = Reserva(fecha=fecha, hora_inicio=inicio, servicio=servicio, profesional=pro)
         prueba.calcular_fin()
         if prueba.reserva_que_choca() is None and prueba.bloqueo_que_choca() is None:
@@ -55,10 +57,13 @@ def crear_reserva(*, nombre, telefono, email, servicio, fecha, hora_inicio, prof
     Si otra persona tomó la misma hora un instante antes, la restricción única de la base de datos
     lo impide y se informa como error de validación. Los intentos rechazados quedan en el historial.
     """
-    telefono = normalizar_telefono(telefono)
+    telefono = normalizar_telefono(telefono) or None
     try:
         with transaction.atomic():
-            clienta, _ = Clienta.objects.get_or_create(telefono=telefono, defaults={"nombre": nombre, "email": email})
+            if telefono:
+                clienta, _ = Clienta.objects.get_or_create(telefono=telefono, defaults={"nombre": nombre, "email": email})
+            else:
+                clienta = Clienta(nombre=nombre, email=email)
             clienta.nombre = nombre or clienta.nombre
             if email:
                 clienta.email = email
@@ -79,7 +84,7 @@ def crear_reserva(*, nombre, telefono, email, servicio, fecha, hora_inicio, prof
         error = e
     HistorialReserva.registrar(None, "intento_rechazado", usuario, origen,
                                f"{fecha:%d-%m-%Y} {hora_inicio:%H:%M} · {getattr(servicio, 'nombre', '')} · "
-                               f"+{telefono} · {'; '.join(error.messages)}")
+                               f"{'+' + telefono if telefono else nombre} · {'; '.join(error.messages)}")
     raise error
 
 
@@ -120,3 +125,7 @@ def indicadores(fecha):
         "tiempo_muerto": muerto,
         "traslapes": traslapes,
     }
+
+
+def horas_libres_cercanas(fecha, servicio, profesional, desde, cantidad=2):
+    return [h for h, libre in horas_del_dia(fecha, servicio, profesional) if libre and h > desde][:cantidad]

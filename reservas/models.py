@@ -95,7 +95,7 @@ class Bloqueo(models.Model):
 
 class Clienta(models.Model):
     nombre = models.CharField(max_length=100)
-    telefono = models.CharField("celular", max_length=11, unique=True, validators=[validar_telefono])
+    telefono = models.CharField("celular", max_length=11, unique=True, null=True, blank=True, validators=[validar_telefono])
     email = models.EmailField(blank=True)
     consentimiento_en = models.DateTimeField("consentimiento de datos", null=True, blank=True)
     creada_en = models.DateTimeField(auto_now_add=True)
@@ -104,7 +104,7 @@ class Clienta(models.Model):
         ordering = ["nombre"]
 
     def __str__(self):
-        return f"{self.nombre} (+{self.telefono})"
+        return f"{self.nombre} (+{self.telefono})" if self.telefono else self.nombre
 
 
 class Reserva(models.Model):
@@ -122,6 +122,7 @@ class Reserva(models.Model):
     canal = models.CharField(max_length=12, choices=CANALES, default="web")
     estado = models.CharField(max_length=10, choices=ESTADOS, default="agendada")
     notas = models.TextField(blank=True)
+    confirmada_en = models.DateTimeField("asistencia confirmada por la clienta", null=True, blank=True, editable=False)
     creada_en = models.DateTimeField(auto_now_add=True)
     actualizada_en = models.DateTimeField(auto_now=True)
     creada_por = models.ForeignKey(settings.AUTH_USER_MODEL, null=True, blank=True, on_delete=models.SET_NULL,
@@ -292,3 +293,23 @@ class HistorialReserva(models.Model):
 
     def delete(self, *args, **kwargs):
         raise ValidationError("El historial no se puede borrar.")
+
+
+class SolicitudWhatsApp(models.Model):
+    """Clienta que prefiere que el spa la contacte para darle hora (reserva asistida)."""
+    PREFERENCIAS = [("manana", "Mañana (10:00 a 13:00)"), ("tarde", "Tarde (14:00 a 19:00)"), ("cualquiera", "Me da lo mismo")]
+    nombre = models.CharField(max_length=100)
+    telefono = models.CharField("celular", max_length=11, validators=[validar_telefono])
+    servicio = models.ForeignKey(Servicio, null=True, blank=True, on_delete=models.SET_NULL)
+    preferencia = models.CharField(max_length=12, choices=PREFERENCIAS, default="cualquiera")
+    creada_en = models.DateTimeField(auto_now_add=True)
+    atendida = models.BooleanField(default=False)
+    reserva = models.ForeignKey(Reserva, null=True, blank=True, on_delete=models.SET_NULL)
+
+    class Meta:
+        ordering = ["atendida", "creada_en"]
+        verbose_name = "solicitud por WhatsApp"
+        verbose_name_plural = "solicitudes por WhatsApp"
+
+    def __str__(self):
+        return f"{self.nombre} (+{self.telefono})"

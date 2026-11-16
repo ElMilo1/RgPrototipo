@@ -4,25 +4,25 @@ Prototipo del sistema de reservas de RG Beauty Spa hecho en Django con base de d
 
 El problema de fondo es que entre el 60 % y el 70 % de las reservas llegan por WhatsApp e Instagram y quedan anotadas en lugares distintos, por lo que se entregan horas que ya estaban tomadas. El sistema junta todas las reservas en una sola agenda, valida que no se crucen y deja registro de cada movimiento.
 
-## Instalación
+## Instalación rápida
 
-Necesitas Python 3.10 o superior.
+Requiere Python 3.10 o superior. El único paquete que necesita es Django (SQLite ya viene con Python), así que todo se instala con `pip install -r requirements.txt`.
 
-```bash
-git clone https://github.com/ElMilo1/RgPrototipo.git
-cd RgPrototipo
-python -m venv .venv
-# Windows:  .venv\Scripts\activate
-# macOS/Linux:  source .venv/bin/activate
-pip install -r requirements.txt
-python manage.py migrate
-python manage.py createsuperuser
-python manage.py runserver
+**Windows:** doble clic en `iniciar.bat`. Crea el entorno, instala, prepara la base, te pide crear el usuario de la dueña la primera vez y abre el navegador.
+
+**Mac o Linux:** `./iniciar.sh`
+
+**A mano, en una sola línea (PowerShell):**
+
+```
+python -m venv .venv; .\.venv\Scripts\pip install -r requirements.txt; .\.venv\Scripts\python manage.py migrate; .\.venv\Scripts\python manage.py createsuperuser; .\.venv\Scripts\python manage.py runserver
 ```
 
-Abre http://127.0.0.1:8000/ para reservar como clienta. El personal entra en "Ingreso personal" con el usuario creado en `createsuperuser`.
+Luego abre http://127.0.0.1:8000/. La vista clienta es la página principal; el personal entra en "Ingreso personal" con el usuario creado.
 
 `migrate` crea la base `db.sqlite3` y carga el horario (lunes a viernes 10:00 a 19:00, sábado 10:00 a 14:00, domingo cerrado), seis servicios y una profesional. Todo se cambia en Configuración (`/admin/`).
+
+Para la demostración hay reservas de ejemplo: `python manage.py cargar_demo` las crea en los próximos días y `python manage.py cargar_demo --borrar` las cancela.
 
 ## Reglas de validación
 
@@ -56,18 +56,25 @@ Las reglas se ajustan en `config/settings.py`, en el bloque `AGENDA`:
 
 ## Pantallas
 
+El diseño es el mismo del prototipo v2 de la presentación: la clienta ve un flujo tipo celular de cuatro pasos y la dueña ve la "Agenda del día".
+
 | Ruta | Quién | Qué hace |
 | --- | --- | --- |
-| `/` | Clienta | Elige servicio, profesional, día y hora (las ocupadas aparecen tachadas) y confirma con sus datos |
+| `/` | Clienta | Servicio y profesional ("Sin preferencia" por defecto), día y hora, datos y confirmación. Si toca una hora ocupada, se le explica que está tomada y se sugieren dos horas libres cercanas |
+| `/reserva/<código>/recordatorio/` | Clienta | Simulación del recordatorio por WhatsApp con botones para confirmar, cambiar o cancelar; la respuesta queda en el historial |
+| `/whatsapp/` | Clienta | Reserva asistida: deja nombre, celular y preferencia, y la solicitud aparece en el panel |
 | `/mis-reservas/` | Clienta | Busca sus reservas con el celular y las cancela |
-| `/panel/` | Personal | Agenda del día, indicadores (ocupación, cancelaciones, no-show, tiempo muerto, traslapes), cambio de estado y recordatorios por WhatsApp para mañana |
-| `/panel/nueva/` | Personal | Anota reservas que llegan por WhatsApp, Instagram, teléfono o en el local, con las mismas validaciones |
+| `/panel/` | Personal | Indicadores del día, agenda por profesional con el canal de cada reserva por color y los tiempos muertos marcados, registro de reservas de otros canales, solicitudes por WhatsApp y recordatorios para mañana. Al tocar una reserva se marca asistió, no llegó o cancelada |
 | `/panel/historial/` | Personal | Historial completo con filtros por código y acción |
 | `/panel/exportar.csv` | Personal | Descarga todas las reservas para Excel |
-| `/admin/` | Personal | Servicios, profesionales, horario, bloqueos, clientas y reservas |
+| `/admin/` | Personal | Servicios, profesionales, horario, bloqueos, clientas, solicitudes y reservas |
 
-![Reserva en línea](docs/django-reservar.png)
-![Panel del día](docs/django-panel.png)
+<p>
+<img src="docs/django-reservar.png" width="300" alt="Elegir día y hora">
+<img src="docs/django-confirmacion.png" width="300" alt="Confirmación">
+</p>
+
+![Panel de la dueña](docs/django-panel.png)
 ![Historial](docs/django-historial.png)
 
 ## Pruebas
@@ -76,7 +83,7 @@ Las reglas se ajustan en `config/settings.py`, en el bloque `AGENDA`:
 python manage.py test reservas
 ```
 
-Son 23 pruebas que cubren la regla de mismo día y misma hora (en el formulario y en la base de datos), cruces, horario, días cerrados, fechas pasadas, bloqueos, reactivación de reservas canceladas, el historial y el acceso al panel.
+Son 28 pruebas que cubren la regla de mismo día y misma hora (en el formulario y en la base de datos), cruces, horario, días cerrados, fechas pasadas, bloqueos, reactivación de reservas canceladas, reservas anotadas desde el panel sin celular, el recordatorio, las solicitudes por WhatsApp, el historial y el acceso al panel.
 
 ## Versión sin servidor
 

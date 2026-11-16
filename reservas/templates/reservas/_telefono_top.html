@@ -1,0 +1,5 @@
+<div class="tel-top">
+  <div class="t1">RG Beauty Spa</div>
+  <div class="t2">{{ subtitulo|default:"Reserva tu hora en línea" }}</div>
+  <div class="pasos">{% for i in "1234" %}<span class="{% if forloop.counter <= paso %}ok{% endif %}"></span>{% endfor %}</div>
+</div>

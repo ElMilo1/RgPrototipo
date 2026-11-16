@@ -1,0 +1,24 @@
+{% extends "reservas/base.html" %}
+{% block titulo %}Reservar por WhatsApp{% endblock %}
+{% block contenido %}
+<div class="telefono">
+  {% with paso=0 %}{% include "reservas/_telefono_top.html" %}{% endwith %}
+  <form class="pantalla" method="post" novalidate>
+    {% csrf_token %}
+    <a class="volver" href="{% url 'reservar' %}">‹ Volver</a>
+    <h2>Te atendemos por WhatsApp</h2>
+    <p class="sub">Déjanos tu nombre y qué servicio buscas. Te escribimos para ofrecerte una hora libre y la dejamos anotada en la misma agenda.</p>
+    {% if enviada %}<div class="aviso ok">¡Recibido! Te escribiremos por WhatsApp para confirmar tu hora.</div>{% endif %}
+    <label class="campo">Nombre<input type="text" name="nombre" value="{{ form.nombre.value|default:'' }}"></label>
+    {% for e in form.nombre.errors %}<span class="error">{{ e }}</span>{% endfor %}
+    <label class="campo">Celular<input type="tel" name="telefono" value="{{ form.telefono.value|default:'' }}" placeholder="9 1234 5678"></label>
+    {% for e in form.telefono.errors %}<span class="error">{{ e }}</span>{% endfor %}
+    <label class="campo">Servicio{{ form.servicio }}</label>
+    <label class="campo">¿Cuándo te acomoda?{{ form.preferencia }}</label>
+    <label class="consent"><input type="checkbox" name="consentimiento"><span>{{ form.consentimiento.label }}</span></label>
+    {% for e in form.consentimiento.errors %}<span class="error">{{ e }}</span>{% endfor %}
+    <button class="btn wa">Enviar solicitud</button>
+  </form>
+  {% include "reservas/_pie_tel.html" %}
+</div>
+{% endblock %}

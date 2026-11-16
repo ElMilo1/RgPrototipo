@@ -1,0 +1,31 @@
+{% extends "reservas/base.html" %}{% load agenda_tags %}
+{% block titulo %}Recordatorio{% endblock %}
+{% block contenido %}
+<div class="telefono">
+  {% with paso=4 %}{% include "reservas/_telefono_top.html" %}{% endwith %}
+  <div class="pantalla">
+    <a class="volver" href="{% url 'confirmacion' r.codigo %}">‹ Volver</a>
+    <h2>Recordatorio (24 horas antes)</h2>
+    <p class="sub">Así se ve el mensaje automático en WhatsApp. Lo que respondas queda registrado en la reserva.</p>
+    <div class="wa-fondo">
+      <div class="burbuja">Hola {{ r.clienta.nombre }} 👋 Te recordamos tu hora en RG Beauty Spa:<br><b>{{ r.servicio.nombre }}</b><br>{{ r.fecha|fecha_larga }} a las <b>{{ r.hora_inicio|hm }}</b><br>¿Nos confirmas tu asistencia?<div class="hr">10:00</div></div>
+      {% if respuesta == "confirmar" %}
+        <div class="burbuja yo">Sí, asistiré</div><div class="burbuja">¡Gracias! Te esperamos 😊<div class="hr">10:01</div></div>
+      {% elif respuesta == "cancelar" %}
+        <div class="burbuja yo">Cancelar mi hora</div><div class="burbuja">Listo, tu hora quedó cancelada y se liberó para otra clienta.<div class="hr">10:01</div></div>
+      {% elif r.estado == "agendada" and not r.confirmada_en %}
+        <form method="post" class="wa-botones">{% csrf_token %}
+          <button name="accion" value="confirmar">Sí, asistiré</button>
+          <button name="accion" value="cambiar">Cambiar día u hora</button>
+          <button name="accion" value="cancelar">Cancelar mi hora</button>
+        </form>
+      {% elif r.confirmada_en %}
+        <div class="burbuja yo">Sí, asistiré</div>
+      {% else %}
+        <div class="burbuja">Esta reserva está {{ r.get_estado_display|lower }}.</div>
+      {% endif %}
+    </div>
+  </div>
+  {% include "reservas/_pie_tel.html" %}
+</div>
+{% endblock %}

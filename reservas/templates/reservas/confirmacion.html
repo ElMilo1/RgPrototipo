@@ -1,21 +1,25 @@
-{% extends "reservas/base.html" %}
+{% extends "reservas/base.html" %}{% load agenda_tags %}
 {% block titulo %}Reserva confirmada{% endblock %}
 {% block contenido %}
-<div class="row justify-content-center"><div class="col-lg-6">
-<div class="card card-body text-center">
-  <div class="display-6 text-success">✓</div>
-  <h1 class="h4">¡Tu hora está reservada!</h1>
-  <p class="text-muted">Código de reserva <strong>{{ r.codigo }}</strong></p>
-  <table class="table text-start mb-3">
-    <tr><th>Servicio</th><td>{{ r.servicio.nombre }}</td></tr>
-    <tr><th>Día</th><td>{{ r.fecha|date:"l d \d\e F \d\e Y" }}</td></tr>
-    <tr><th>Hora</th><td>{{ r.hora_inicio|time:"H:i" }} a {{ r.hora_fin|time:"H:i" }}</td></tr>
-    <tr><th>Con</th><td>{{ r.profesional|default:"Por asignar" }}</td></tr>
-    <tr><th>A nombre de</th><td>{{ r.clienta.nombre }}</td></tr>
-    {% if r.servicio.precio %}<tr><th>Valor</th><td>${{ r.servicio.precio }}</td></tr>{% endif %}
-  </table>
-  <p class="small text-muted">Si no puedes asistir, cancela desde "Mis reservas" con al menos 24 horas de anticipación.</p>
-  <a class="btn btn-rosa" href="{% url 'reservar' %}">Hacer otra reserva</a>
+<div class="telefono">
+  {% with paso=4 %}{% include "reservas/_telefono_top.html" %}{% endwith %}
+  <div class="pantalla">
+    <div class="check">✓</div>
+    <h2 style="text-align:center">¡Tu hora está reservada!</h2>
+    <p class="sub" style="text-align:center">Código de reserva {{ r.codigo }}</p>
+    <div class="resumen">
+      <span>Servicio</span><b>{{ r.servicio.nombre }}</b>
+      <span>Día</span><b>{{ r.fecha|fecha_larga }}</b>
+      <span>Hora</span><b>{{ r.hora_inicio|hm }} a {{ r.hora_fin|hm }}</b>
+      <span>Con</span><b>{{ r.profesional|default:"Por asignar" }}</b>
+      <span>A nombre de</span><b>{{ r.clienta.nombre }}</b>
+      {% if r.servicio.precio %}<span>Valor</span><b>${{ r.servicio.precio }}</b>{% endif %}
+    </div>
+    <div class="aviso ok">Te enviamos la confirmación por WhatsApp al {{ r.clienta.telefono|fono }}. El día antes te llegará un recordatorio.</div>
+    <p class="sub">Política de cancelación: si no puedes asistir, cancela desde "Mis reservas" o desde el recordatorio con al menos 24 horas de anticipación.</p>
+    <a class="btn sec" href="{% url 'recordatorio' r.codigo %}">Ver cómo llega el recordatorio</a>
+    <a class="btn" href="{% url 'reservar' %}">Listo</a>
+  </div>
+  {% include "reservas/_pie_tel.html" %}
 </div>
-</div></div>
 {% endblock %}

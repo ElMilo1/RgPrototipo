@@ -180,3 +180,51 @@ class Vistas(Base):
         self.assertEqual(self.client.get(reverse("panel")).status_code, 200)
         self.assertEqual(self.client.get(reverse("historial")).status_code, 200)
         self.assertEqual(self.client.get(reverse("exportar_csv")).status_code, 200)
+
+
+class PanelYFlujoNuevo(Base):
+    def setUp(self):
+        super().setUp()
+        User.objects.create_user("duena", password="x", is_staff=True)
+        self.client.login(username="duena", password="x")
+
+    def datos(self, **kw):
+        d = {"fecha": self.dia.isoformat(), "nombre": "Paula", "telefono": "", "canal": "instagram",
+             "servicio": self.masaje.pk, "profesional": "", "hora_inicio": "10:00"}
+        d.update(kw)
+        return d
+
+    def test_registro_manual_sin_celular_y_rechazo_de_misma_hora(self):
+        self.client.post(reverse("nueva_reserva"), self.datos())
+        self.assertEqual(Reserva.objects.filter(fecha=self.dia, hora_inicio=time(10)).count(), 1)
+        r = self.client.post(reverse("nueva_reserva"), self.datos(nombre="Gloria"), follow=True)
+        self.assertContains(r, "Ya existe una reserva")
+        self.assertEqual(Reserva.objects.filter(fecha=self.dia, hora_inicio=time(10)).count(), 1)
+
+    def test_panel_muestra_linea_de_tiempo(self):
+        self.reservar(time(10))
+        r = self.client.get(reverse("panel"), {"fecha": self.dia.isoformat()})
+        self.assertContains(r, "Agenda por profesional")
+        self.assertContains(r, 'class="bloque agendada"')
+
+    def test_hora_ocupada_muestra_alternativas(self):
+        self.reservar(time(10))
+        self.client.logout()
+        r = self.client.get(reverse("reservar"), {"servicio": self.masaje.pk, "fecha": self.dia.isoformat(), "ocupada": "10:00"})
+        self.assertContains(r, "ya está tomada")
+        self.assertContains(r, "11:00")
+
+    def test_recordatorio_confirmar_queda_en_historial(self):
+        self.client.logout()
+        self.client.post(reverse("reservar"), {"servicio": self.masaje.pk, "fecha": self.dia.isoformat(), "hora": "11:00",
+                                               "nombre": "Marco", "telefono": "911112222", "consentimiento": "on"})
+        r = Reserva.objects.get(hora_inicio=time(11))
+        self.client.post(reverse("recordatorio", args=[r.codigo]), {"accion": "confirmar"})
+        r.refresh_from_db()
+        self.assertIsNotNone(r.confirmada_en)
+        self.assertTrue(HistorialReserva.objects.filter(reserva=r, detalle__icontains="confirmó").exists())
+
+    def test_solicitud_whatsapp_aparece_en_panel(self):
+        self.client.post(reverse("asistida"), {"nombre": "Rosa", "telefono": "922223333", "preferencia": "tarde", "consentimiento": "on"})
+        r = self.client.get(reverse("panel"))
+        self.assertContains(r, "Rosa")
