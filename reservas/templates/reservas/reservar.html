@@ -1,0 +1,77 @@
+{% extends "reservas/base.html" %}
+{% block titulo %}Reservar{% endblock %}
+{% block contenido %}
+<div class="row justify-content-center"><div class="col-lg-7">
+<h1 class="h3 mb-1">Reserva tu hora</h1>
+<p class="text-muted">Solo aparecen las horas libres. Recibes un código de reserva al confirmar.</p>
+
+<form method="get" class="card card-body mb-3" id="filtros">
+  <h2 class="h6"><span class="paso">1</span>Servicio y profesional</h2>
+  <div class="row g-2">
+    <div class="col-sm-7">
+      <select name="servicio" class="form-select" onchange="this.form.submit()">
+        <option value="">Elige un servicio</option>
+        {% for s in servicios %}<option value="{{ s.pk }}" {% if s == servicio %}selected{% endif %}>{{ s.nombre }} · {{ s.duracion_min }} min{% if s.precio %} · ${{ s.precio }}{% endif %}</option>{% endfor %}
+      </select>
+    </div>
+    <div class="col-sm-5">
+      <select name="profesional" class="form-select" onchange="this.form.submit()">
+        <option value="">Sin preferencia</option>
+        {% for p in profesionales %}<option value="{{ p.pk }}" {% if p == profesional %}selected{% endif %}>{{ p.nombre }}</option>{% endfor %}
+      </select>
+    </div>
+  </div>
+  {% if servicio %}
+  <h2 class="h6 mt-3"><span class="paso">2</span>Día</h2>
+  <div class="d-flex flex-wrap gap-2">
+    {% for d in dias %}
+      <input type="radio" class="btn-check" name="fecha" id="d{{ forloop.counter }}" value="{{ d.isoformat }}" {% if d == fecha %}checked{% endif %} onchange="this.form.submit()">
+      <label class="btn btn-sm btn-outline-rosa" for="d{{ forloop.counter }}">{{ d|date:"D d M" }}</label>
+    {% endfor %}
+  </div>
+  <h2 class="h6 mt-3"><span class="paso">3</span>Hora</h2>
+  <div class="d-flex flex-wrap gap-2">
+    {% for h, libre in horas %}
+      {% if libre %}
+        <input type="radio" class="btn-check" name="hora" id="h{{ forloop.counter }}" value="{{ h|time:'H:i' }}" {% if h == hora %}checked{% endif %} onchange="this.form.submit()">
+        <label class="btn btn-sm btn-outline-rosa" for="h{{ forloop.counter }}">{{ h|time:"H:i" }}</label>
+      {% else %}
+        <button type="button" class="btn btn-sm btn-light hora-ocupada" disabled title="Hora tomada">{{ h|time:"H:i" }}</button>
+      {% endif %}
+    {% empty %}
+      <p class="text-muted mb-0">No quedan horas para este día. Prueba con otro.</p>
+    {% endfor %}
+  </div>
+  {% endif %}
+  <noscript><button class="btn btn-outline-rosa mt-3">Ver horas</button></noscript>
+</form>
+
+{% if servicio and fecha and hora %}
+<form method="post" class="card card-body" novalidate>
+  {% csrf_token %}
+  <input type="hidden" name="servicio" value="{{ servicio.pk }}">
+  <input type="hidden" name="profesional" value="{{ profesional.pk|default:'' }}">
+  <input type="hidden" name="fecha" value="{{ fecha.isoformat }}">
+  <input type="hidden" name="hora" value="{{ hora|time:'H:i' }}">
+  <h2 class="h6"><span class="paso">4</span>Tus datos</h2>
+  <p class="small text-muted">{{ servicio.nombre }} · {{ fecha|date:"l d \d\e F" }} a las {{ hora|time:"H:i" }}</p>
+  {% for campo in form %}
+    {% if campo.name == "consentimiento" %}
+      <div class="form-check mb-2 small">
+        <input class="form-check-input {% if campo.errors %}is-invalid{% endif %}" type="checkbox" name="consentimiento" id="cons" {% if campo.value %}checked{% endif %}>
+        <label class="form-check-label text-muted" for="cons">{{ campo.label }}</label>
+        {% for e in campo.errors %}<div class="invalid-feedback">{{ e }}</div>{% endfor %}
+      </div>
+    {% else %}
+      <div class="mb-2">
+        <label class="form-label small mb-1" for="{{ campo.id_for_label }}">{{ campo.label }}</label>
+        <input class="form-control {% if campo.errors %}is-invalid{% endif %}" name="{{ campo.html_name }}" id="{{ campo.id_for_label }}" value="{{ campo.value|default:'' }}" {% if campo.name == 'telefono' %}placeholder="9 1234 5678" inputmode="tel"{% endif %}>
+        {% for e in campo.errors %}<div class="invalid-feedback">{{ e }}</div>{% endfor %}
+      </div>
+    {% endif %}
+  {% endfor %}
+  <button class="btn btn-rosa w-100 mt-2">Confirmar reserva</button>
+</form>
+{% endif %}
+</div></div>
+{% endblock %}

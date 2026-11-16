@@ -1,0 +1,27 @@
+{% extends "reservas/base.html" %}
+{% block titulo %}Mis reservas{% endblock %}
+{% block contenido %}
+<div class="row justify-content-center"><div class="col-lg-6">
+<h1 class="h3">Mis reservas</h1>
+<form method="get" class="card card-body mb-3">
+  <label class="form-label small" for="tel">Celular con que reservaste</label>
+  <div class="input-group">
+    <input class="form-control" id="tel" name="telefono" value="{{ form.telefono.value|default:'' }}" placeholder="9 1234 5678" inputmode="tel">
+    <button class="btn btn-rosa">Buscar</button>
+  </div>
+</form>
+{% if reservas is not None %}
+  {% for r in reservas %}
+  <div class="card card-body mb-2 d-flex flex-row justify-content-between align-items-center">
+    <div><strong>{{ r.servicio.nombre }}</strong><br><span class="small text-muted">{{ r.fecha|date:"l d \d\e F" }} · {{ r.hora_inicio|time:"H:i" }} · {{ r.codigo }}</span></div>
+    <form method="post" action="{% url 'cancelar_publica' r.codigo %}" onsubmit="return confirm('¿Cancelar esta hora?')">
+      {% csrf_token %}<input type="hidden" name="telefono" value="{{ r.clienta.telefono }}">
+      <button class="btn btn-sm btn-outline-danger">Cancelar</button>
+    </form>
+  </div>
+  {% empty %}
+  <div class="alert alert-warning">No encontramos reservas próximas con ese número.</div>
+  {% endfor %}
+{% endif %}
+</div></div>
+{% endblock %}

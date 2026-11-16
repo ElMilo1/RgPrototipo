@@ -1,0 +1,35 @@
+{% extends "reservas/base.html" %}
+{% block titulo %}Historial{% endblock %}
+{% block contenido %}
+<h1 class="h3">Historial de reservas</h1>
+<p class="text-muted">Cada creación, cambio, cancelación e intento rechazado queda registrado con fecha, hora y usuario. Estos registros no se pueden editar ni borrar.</p>
+<form method="get" class="d-flex flex-wrap gap-2 mb-3">
+  <input class="form-control" style="max-width:260px" name="q" value="{{ q }}" placeholder="Código o texto">
+  <select class="form-select" style="max-width:220px" name="accion">
+    <option value="">Todas las acciones</option>
+    {% for v, t in acciones %}<option value="{{ v }}" {% if v == accion %}selected{% endif %}>{{ t }}</option>{% endfor %}
+  </select>
+  <button class="btn btn-rosa">Filtrar</button>
+</form>
+<div class="card card-body"><div class="table-responsive">
+<table class="table table-sm align-middle mb-0">
+  <thead><tr class="small text-muted"><th>Fecha y hora</th><th>Acción</th><th>Reserva</th><th>Detalle</th><th>Usuario</th><th>Origen</th></tr></thead>
+  <tbody>
+  {% for h in pagina %}
+    <tr>
+      <td class="text-nowrap small">{{ h.fecha_hora|date:"d-m-Y H:i:s" }}</td>
+      <td><span class="badge {% if h.accion == 'intento_rechazado' %}bg-danger{% elif h.accion == 'cancelada' %}bg-secondary{% elif h.accion == 'creada' %}bg-success{% else %}bg-primary{% endif %}">{{ h.get_accion_display }}</span></td>
+      <td class="small">{{ h.reserva.codigo|default:"—" }}</td>
+      <td class="small">{{ h.detalle }}</td>
+      <td class="small">{{ h.usuario.username|default:"clienta (web)" }}</td>
+      <td class="small">{{ h.origen }}</td>
+    </tr>
+  {% empty %}<tr><td colspan="6" class="text-muted">Sin registros.</td></tr>{% endfor %}
+  </tbody>
+</table></div></div>
+{% if pagina.has_other_pages %}
+<nav class="mt-2 small">Página {{ pagina.number }} de {{ pagina.paginator.num_pages }}
+  {% if pagina.has_previous %}<a href="?q={{ q }}&accion={{ accion|default:'' }}&page={{ pagina.previous_page_number }}">‹ anterior</a>{% endif %}
+  {% if pagina.has_next %}<a href="?q={{ q }}&accion={{ accion|default:'' }}&page={{ pagina.next_page_number }}">siguiente ›</a>{% endif %}
+</nav>{% endif %}
+{% endblock %}

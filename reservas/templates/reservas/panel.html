@@ -1,0 +1,70 @@
+{% extends "reservas/base.html" %}
+{% block titulo %}Panel{% endblock %}
+{% block contenido %}
+<div class="d-flex flex-wrap justify-content-between align-items-center gap-2 mb-3">
+  <div><h1 class="h3 mb-0">Agenda del {{ fecha|date:"l d \d\e F" }}</h1><span class="text-muted small">Todas las reservas en un solo lugar, vengan de donde vengan.</span></div>
+  <div class="d-flex gap-2 align-items-center">
+    <a class="btn btn-sm btn-outline-secondary" href="?fecha={{ anterior.isoformat }}">‹</a>
+    <form method="get"><input type="date" name="fecha" class="form-control form-control-sm" value="{{ fecha.isoformat }}" onchange="this.form.submit()"></form>
+    <a class="btn btn-sm btn-outline-secondary" href="?fecha={{ siguiente.isoformat }}">›</a>
+    <a class="btn btn-sm btn-outline-secondary" href="{% url 'panel' %}">Hoy</a>
+    <a class="btn btn-sm btn-rosa" href="{% url 'nueva_reserva' %}?fecha={{ fecha.isoformat }}">+ Nueva reserva</a>
+    <a class="btn btn-sm btn-outline-rosa" href="{% url 'exportar_csv' %}">CSV</a>
+  </div>
+</div>
+
+<div class="row g-2 mb-3">
+  <div class="col-6 col-md-2"><div class="card card-body kpi"><div class="n">{{ kpi.ocupacion }}%</div><div class="small text-muted">Ocupación</div></div></div>
+  <div class="col-6 col-md-2"><div class="card card-body kpi"><div class="n">{{ kpi.reservas }}</div><div class="small text-muted">Reservas</div></div></div>
+  <div class="col-6 col-md-2"><div class="card card-body kpi"><div class="n">{{ kpi.cancelaciones }}</div><div class="small text-muted">Cancelaciones</div></div></div>
+  <div class="col-6 col-md-2"><div class="card card-body kpi"><div class="n">{{ kpi.no_show }}</div><div class="small text-muted">No-show</div></div></div>
+  <div class="col-6 col-md-2"><div class="card card-body kpi"><div class="n">{{ kpi.tiempo_muerto }} min</div><div class="small text-muted">Tiempo muerto</div></div></div>
+  <div class="col-6 col-md-2"><div class="card card-body kpi"><div class="n {% if kpi.traslapes %}text-danger{% else %}text-success{% endif %}">{{ kpi.traslapes }}</div><div class="small text-muted">Traslapes (meta 0)</div></div></div>
+</div>
+
+<div class="card card-body mb-3">
+  <div class="table-responsive">
+  <table class="table align-middle mb-0">
+    <thead><tr class="small text-muted"><th>Hora</th><th>Código</th><th>Clienta</th><th>Servicio</th><th>Profesional</th><th>Canal</th><th>Estado</th><th></th></tr></thead>
+    <tbody>
+    {% for r in reservas %}
+      <tr>
+        <td>{{ r.hora_inicio|time:"H:i" }}–{{ r.hora_fin|time:"H:i" }}</td>
+        <td class="small">{{ r.codigo }}</td>
+        <td>{{ r.clienta.nombre }}<br><a class="small" href="https://wa.me/{{ r.clienta.telefono }}" target="_blank" rel="noopener">+{{ r.clienta.telefono }}</a></td>
+        <td>{{ r.servicio.nombre }}</td>
+        <td>{{ r.profesional|default:"—" }}</td>
+        <td>{{ r.get_canal_display }}</td>
+        <td><span class="badge estado-{{ r.estado }}">{{ r.get_estado_display }}</span></td>
+        <td class="text-nowrap">
+          <form method="post" action="{% url 'cambiar_estado' r.pk %}" class="d-inline-flex gap-1">
+            {% csrf_token %}
+            {% if r.estado != "asistio" %}<button name="estado" value="asistio" class="btn btn-sm btn-outline-success">Asistió</button>{% endif %}
+            {% if r.estado != "no_show" %}<button name="estado" value="no_show" class="btn btn-sm btn-outline-secondary">No llegó</button>{% endif %}
+            {% if r.estado != "cancelada" %}<button name="estado" value="cancelada" class="btn btn-sm btn-outline-danger" onclick="return confirm('¿Cancelar y liberar la hora?')">Cancelar</button>
+            {% else %}<button name="estado" value="agendada" class="btn btn-sm btn-outline-rosa">Reactivar</button>{% endif %}
+          </form>
+          <a class="btn btn-sm btn-link" href="{% url 'historial' %}?q={{ r.codigo }}">Historial</a>
+        </td>
+      </tr>
+    {% empty %}
+      <tr><td colspan="8" class="text-muted">No hay reservas este día.</td></tr>
+    {% endfor %}
+    </tbody>
+  </table>
+  </div>
+</div>
+
+<div class="card card-body">
+  <h2 class="h6">Recordatorios para mañana</h2>
+  <p class="small text-muted">Cada botón abre WhatsApp con el mensaje listo para enviar.</p>
+  {% for r in recordatorios %}
+    <div class="d-flex justify-content-between align-items-center border-top py-2">
+      <span>{{ r.hora_inicio|time:"H:i" }} · {{ r.clienta.nombre }} · {{ r.servicio.nombre }}</span>
+      <a class="btn btn-sm btn-success" target="_blank" rel="noopener" href="https://wa.me/{{ r.clienta.telefono }}?text={% filter urlencode %}Hola {{ r.clienta.nombre }}, te recordamos tu hora en RG Beauty Spa: {{ r.servicio.nombre }} mañana a las {{ r.hora_inicio|time:'H:i' }}. ¿Nos confirmas tu asistencia?{% endfilter %}">Enviar recordatorio</a>
+    </div>
+  {% empty %}
+    <p class="text-muted mb-0">No hay reservas para mañana.</p>
+  {% endfor %}
+</div>
+{% endblock %}
