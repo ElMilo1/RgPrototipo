@@ -1,0 +1,6 @@
+db.sqlite3
+.venv
+venv
+staticfiles
+__pycache__
+.creado

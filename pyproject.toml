@@ -1,0 +1,9 @@
+[project]
+name = "rg-beauty-spa-reservas"
+version = "1.0.0"
+description = "Sistema de reservas de RG Beauty Spa (Innovación y Emprendimiento III, INACAP)"
+requires-python = ">=3.12"
+dependencies = [
+    "Django>=6.0,<7",
+    "psycopg[binary]>=3.2",
+]

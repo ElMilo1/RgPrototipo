@@ -33,16 +33,20 @@ class Command(BaseCommand):
         servicios = list(Servicio.objects.filter(activo=True))
         creadas = 0
         for fecha in agenda.dias_reservables()[:dias]:
-            for s in servicios * 3:
+            meta, intentos = rnd.randint(3, 6), 0
+            hechas = 0
+            while hechas < meta and intentos < 30 and servicios:
+                intentos += 1
+                s = rnd.choice(servicios)
                 libres = [h for h, libre in agenda.horas_del_dia(fecha, s) if libre]
-                if not libres or rnd.random() < 0.55:
+                if not libres:
                     continue
-                h = rnd.choice(libres)
                 try:
                     agenda.crear_reserva(nombre=rnd.choice(NOMBRES), telefono=f"9{rnd.randint(10000000, 99999999)}", email="",
-                                         servicio=s, fecha=fecha, hora_inicio=h, canal=rnd.choice(CANALES), notas="demo",
-                                         consentimiento=True, origen="demo")
+                                         servicio=s, fecha=fecha, hora_inicio=rnd.choice(libres), canal=rnd.choice(CANALES),
+                                         notas="demo", consentimiento=True, origen="demo")
                     creadas += 1
+                    hechas += 1
                 except ValidationError:
                     pass
         self.stdout.write(self.style.SUCCESS(f"{creadas} reservas de ejemplo creadas."))

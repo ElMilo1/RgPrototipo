@@ -24,6 +24,21 @@ Luego abre http://127.0.0.1:8000/. La vista clienta es la página principal; el 
 
 Para la demostración hay reservas de ejemplo: `python manage.py cargar_demo` las crea en los próximos días y `python manage.py cargar_demo --borrar` las cancela.
 
+## Publicación en Vercel
+
+El proyecto está listo para Vercel, que detecta Django por el archivo `manage.py`. En Vercel no se guardan archivos entre visitas, así que allá la base es Postgres (Neon) y en el computador sigue siendo SQLite. La aplicación elige sola según exista o no la variable `DATABASE_URL`.
+
+Variables de entorno del proyecto en Vercel:
+
+| Variable | Para qué |
+| --- | --- |
+| `DATABASE_URL` | Conexión a Postgres de Neon (Neon → proyecto → Connect) |
+| `DJANGO_SECRET_KEY` | Clave secreta de Django, cualquier texto largo y aleatorio |
+| `DJANGO_SUPERUSER_USERNAME` y `DJANGO_SUPERUSER_PASSWORD` | Usuario de la dueña; se crea solo la primera vez |
+| `CARGAR_DEMO` | `1` para cargar reservas de ejemplo si la base está vacía |
+
+Al arrancar en Vercel, `config/wsgi.py` ejecuta `preparar_produccion`, que aplica las migraciones pendientes y crea el usuario. No hay que correr comandos a mano.
+
 ## Reglas de validación
 
 Se revisan en el modelo `Reserva` (`reservas/models.py`), así que aplican igual en la reserva en línea, en el panel y en el administrador de Django.
